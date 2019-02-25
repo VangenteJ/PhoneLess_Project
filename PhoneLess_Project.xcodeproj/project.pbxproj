@@ -15,6 +15,13 @@
 		0CF2CBBE22241FFE00D5DAEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CF2CBBC22241FFE00D5DAEA /* LaunchScreen.storyboard */; };
 		0CF2CBC922241FFF00D5DAEA /* PhoneLess_ProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF2CBC822241FFF00D5DAEA /* PhoneLess_ProjectTests.swift */; };
 		0CF2CBD422241FFF00D5DAEA /* PhoneLess_ProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF2CBD322241FFF00D5DAEA /* PhoneLess_ProjectUITests.swift */; };
+		0CF2CBE22224282900D5DAEA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0CF2CBE12224282900D5DAEA /* GoogleService-Info.plist */; };
+		0CF2CBE422242D5800D5DAEA /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF2CBE322242D5800D5DAEA /* MenuController.swift */; };
+		0CF2CBE622242D7800D5DAEA /* PerformanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF2CBE522242D7800D5DAEA /* PerformanceController.swift */; };
+		0CF2CBE822242D8B00D5DAEA /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF2CBE722242D8B00D5DAEA /* ProfileController.swift */; };
+		0CF2CBEA22242D9B00D5DAEA /* LeaderBoardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF2CBE922242D9B00D5DAEA /* LeaderBoardController.swift */; };
+		0CF2CBEC22242DA900D5DAEA /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF2CBEB22242DA900D5DAEA /* SettingController.swift */; };
+		0CF2CBEE22242DB800D5DAEA /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF2CBED22242DB700D5DAEA /* HelpController.swift */; };
 		604ECDC6AC6E0C1A50E66436 /* Pods_PhoneLess_ProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02759235B65E6921BCEC57A8 /* Pods_PhoneLess_ProjectUITests.framework */; };
 		671FE7A32FE440EAC88569D5 /* Pods_PhoneLess_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23CCF0C0FA378C5023D2BAE8 /* Pods_PhoneLess_Project.framework */; };
 		7852FE89211966B31EB45F33 /* Pods_PhoneLess_ProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1938A931C5FE82C86EDDD529 /* Pods_PhoneLess_ProjectTests.framework */; };
@@ -53,6 +60,13 @@
 		0CF2CBCF22241FFF00D5DAEA /* PhoneLess_ProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhoneLess_ProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CF2CBD322241FFF00D5DAEA /* PhoneLess_ProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLess_ProjectUITests.swift; sourceTree = "<group>"; };
 		0CF2CBD522241FFF00D5DAEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0CF2CBE12224282900D5DAEA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0CF2CBE322242D5800D5DAEA /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		0CF2CBE522242D7800D5DAEA /* PerformanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceController.swift; sourceTree = "<group>"; };
+		0CF2CBE722242D8B00D5DAEA /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		0CF2CBE922242D9B00D5DAEA /* LeaderBoardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardController.swift; sourceTree = "<group>"; };
+		0CF2CBEB22242DA900D5DAEA /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
+		0CF2CBED22242DB700D5DAEA /* HelpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpController.swift; sourceTree = "<group>"; };
 		14949AB3E922034FF6865B0B /* Pods-PhoneLess_ProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhoneLess_ProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-PhoneLess_ProjectTests/Pods-PhoneLess_ProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1938A931C5FE82C86EDDD529 /* Pods_PhoneLess_ProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhoneLess_ProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23CCF0C0FA378C5023D2BAE8 /* Pods_PhoneLess_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhoneLess_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,10 +132,17 @@
 			children = (
 				0CF2CBB022241FFA00D5DAEA /* AppDelegate.swift */,
 				0CF2CBB222241FFA00D5DAEA /* ViewController.swift */,
+				0CF2CBE322242D5800D5DAEA /* MenuController.swift */,
+				0CF2CBE522242D7800D5DAEA /* PerformanceController.swift */,
+				0CF2CBE722242D8B00D5DAEA /* ProfileController.swift */,
+				0CF2CBE922242D9B00D5DAEA /* LeaderBoardController.swift */,
+				0CF2CBEB22242DA900D5DAEA /* SettingController.swift */,
+				0CF2CBED22242DB700D5DAEA /* HelpController.swift */,
 				0CF2CBB422241FFA00D5DAEA /* Main.storyboard */,
 				0CF2CBBA22241FFE00D5DAEA /* Assets.xcassets */,
 				0CF2CBBC22241FFE00D5DAEA /* LaunchScreen.storyboard */,
 				0CF2CBBF22241FFE00D5DAEA /* Info.plist */,
+				0CF2CBE12224282900D5DAEA /* GoogleService-Info.plist */,
 				0CF2CBB722241FFA00D5DAEA /* PhoneLess_Project.xcdatamodeld */,
 			);
 			path = PhoneLess_Project;
@@ -155,7 +176,6 @@
 				C47A7545547A8B6A52A2375F /* Pods-PhoneLess_ProjectUITests.debug.xcconfig */,
 				73241B22F3B4EE23813AC4D3 /* Pods-PhoneLess_ProjectUITests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -278,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CF2CBBE22241FFE00D5DAEA /* LaunchScreen.storyboard in Resources */,
+				0CF2CBE22224282900D5DAEA /* GoogleService-Info.plist in Resources */,
 				0CF2CBBB22241FFE00D5DAEA /* Assets.xcassets in Resources */,
 				0CF2CBB622241FFA00D5DAEA /* Main.storyboard in Resources */,
 			);
@@ -413,9 +434,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CF2CBE622242D7800D5DAEA /* PerformanceController.swift in Sources */,
+				0CF2CBE422242D5800D5DAEA /* MenuController.swift in Sources */,
 				0CF2CBB322241FFA00D5DAEA /* ViewController.swift in Sources */,
 				0CF2CBB122241FFA00D5DAEA /* AppDelegate.swift in Sources */,
+				0CF2CBEC22242DA900D5DAEA /* SettingController.swift in Sources */,
 				0CF2CBB922241FFA00D5DAEA /* PhoneLess_Project.xcdatamodeld in Sources */,
+				0CF2CBE822242D8B00D5DAEA /* ProfileController.swift in Sources */,
+				0CF2CBEE22242DB800D5DAEA /* HelpController.swift in Sources */,
+				0CF2CBEA22242D9B00D5DAEA /* LeaderBoardController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
