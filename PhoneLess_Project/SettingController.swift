@@ -18,6 +18,7 @@ class SettingController: UIViewController {
     @IBOutlet weak var btnChangeDetails: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        set_up()
 
         // Do any additional setup after loading the view.
     }
@@ -67,6 +68,15 @@ class SettingController: UIViewController {
             uiviewChangeDetails.isHidden = true
             btnChangeDetails.setImage(UIImage.init(named: "expand"), for: .normal)
         }
+    }
+    
+    func set_up(){
+        viewSetGoals.isHidden = true
+        btnSetGoals.setImage(UIImage.init(named: "expand"), for: .normal)
+        uiviewViewGoals.isHidden = true
+        btnDisplayGoals.setImage(UIImage.init(named: "expand"), for: .normal)
+        uiviewChangeDetails.isHidden = true
+        btnChangeDetails.setImage(UIImage.init(named: "expand"), for: .normal)
     }
 
 }
