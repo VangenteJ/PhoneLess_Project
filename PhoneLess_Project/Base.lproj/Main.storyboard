@@ -785,6 +785,17 @@
                         <viewLayoutGuide key="safeArea" id="gJM-L0-aJX"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="profile" id="Erh-f5-RAH"/>
+                    <connections>
+                        <outlet property="pbest_Daily_Steps" destination="KZP-lW-hX4" id="a3E-zH-lnQ"/>
+                        <outlet property="pbest_Daily_Timeoff" destination="zTD-cI-Smt" id="zsN-Zc-ItR"/>
+                        <outlet property="pbest_Weekly_Steps" destination="zAP-Al-eEv" id="mJS-Yj-svK"/>
+                        <outlet property="pbest_Weekly_Timeoff" destination="gu4-lT-aj3" id="JTa-bI-YtE"/>
+                        <outlet property="userActivityLevel" destination="9lW-9V-0fd" id="dLs-pJ-9v9"/>
+                        <outlet property="userAddictionLevel" destination="hNe-eQ-f3X" id="zbN-9c-RJR"/>
+                        <outlet property="userImg" destination="n0P-yo-Xs6" id="etK-fR-h3x"/>
+                        <outlet property="userName" destination="Yi3-3A-stw" id="a0S-A2-Da7"/>
+                        <outlet property="userSurname" destination="Q4q-OE-IdD" id="4LJ-YG-OeR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8qS-Eb-J69" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1098,7 +1109,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="tNy-IZ-LUq">
-                                <rect key="frame" x="10" y="20" width="355" height="733"/>
+                                <rect key="frame" x="10" y="20" width="355" height="770"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="sws-ao-baP">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="191"/>
@@ -1152,6 +1163,9 @@
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDU-ro-OnE">
                                                                         <rect key="frame" x="208" y="0.0" width="147" height="30"/>
                                                                         <state key="normal" title="Set"/>
+                                                                        <connections>
+                                                                            <action selector="set_up_daily_timeoff_Goal:" destination="O5S-jP-jhp" eventType="touchUpInside" id="LEx-wJ-i38"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                             </stackView>
@@ -1170,6 +1184,9 @@
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1FR-51-mAG">
                                                                         <rect key="frame" x="208" y="0.0" width="147" height="30"/>
                                                                         <state key="normal" title="Set"/>
+                                                                        <connections>
+                                                                            <action selector="set_up_weekly_timeoff_Goal:" destination="O5S-jP-jhp" eventType="touchUpInside" id="IzF-u9-HvA"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                             </stackView>
@@ -1188,6 +1205,9 @@
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="opN-lL-Jk8">
                                                                         <rect key="frame" x="208" y="0.0" width="147" height="30"/>
                                                                         <state key="normal" title="Set"/>
+                                                                        <connections>
+                                                                            <action selector="set_up_daily_steps:" destination="O5S-jP-jhp" eventType="touchUpInside" id="5zq-XY-OmB"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <constraints>
@@ -1360,6 +1380,9 @@
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpd-EQ-yFz">
                                                                                 <rect key="frame" x="200" y="0.0" width="135" height="30"/>
                                                                                 <state key="normal" title="Update"/>
+                                                                                <connections>
+                                                                                    <action selector="update_Activity_Level:" destination="O5S-jP-jhp" eventType="touchUpInside" id="qqB-4x-ewk"/>
+                                                                                </connections>
                                                                             </button>
                                                                         </subviews>
                                                                     </stackView>
@@ -1378,6 +1401,9 @@
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bQn-fH-yEi">
                                                                                 <rect key="frame" x="200" y="0.0" width="135" height="30"/>
                                                                                 <state key="normal" title="Update"/>
+                                                                                <connections>
+                                                                                    <action selector="update_Device_addiction:" destination="O5S-jP-jhp" eventType="touchUpInside" id="NwF-gZ-sO7"/>
+                                                                                </connections>
                                                                             </button>
                                                                         </subviews>
                                                                     </stackView>
@@ -1396,6 +1422,9 @@
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5L-gp-fvj">
                                                                                 <rect key="frame" x="200" y="0.0" width="135" height="30"/>
                                                                                 <state key="normal" title="Add"/>
+                                                                                <connections>
+                                                                                    <action selector="add_friend:" destination="O5S-jP-jhp" eventType="touchUpInside" id="tPQ-Lx-WNJ"/>
+                                                                                </connections>
                                                                             </button>
                                                                         </subviews>
                                                                     </stackView>
@@ -1437,27 +1466,33 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="2YJ-et-Uxl" userLabel="imageStackView">
-                                        <rect key="frame" x="0.0" y="596" width="181" height="137"/>
+                                        <rect key="frame" x="0.0" y="596" width="100" height="174"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="tbe-o1-fOk">
-                                                <rect key="frame" x="0.0" y="0.0" width="181" height="100"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="tbe-o1-fOk">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="137"/>
                                                 <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="es0-HP-beI">
+                                                        <rect key="frame" x="13" y="0.0" width="74" height="30"/>
+                                                        <state key="normal" title="Add Image"/>
+                                                        <connections>
+                                                            <action selector="addImage:" destination="O5S-jP-jhp" eventType="touchUpInside" id="LZX-tm-b0d"/>
+                                                        </connections>
+                                                    </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="Uro-FW-tGK">
-                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                        <rect key="frame" x="0.0" y="37" width="100" height="100"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="100" id="QR9-yj-LfE"/>
                                                             <constraint firstAttribute="width" constant="100" id="RDS-Ue-7og"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="es0-HP-beI">
-                                                        <rect key="frame" x="107" y="35" width="74" height="30"/>
-                                                        <state key="normal" title="Add Image"/>
-                                                    </button>
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NCf-eW-1oL">
-                                                <rect key="frame" x="0.0" y="107" width="55" height="30"/>
+                                                <rect key="frame" x="0.0" y="144" width="55" height="30"/>
                                                 <state key="normal" title="Log Out"/>
+                                                <connections>
+                                                    <action selector="logOut:" destination="O5S-jP-jhp" eventType="touchUpInside" id="Lv9-Kj-ewQ"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -1488,9 +1523,21 @@
                         <outlet property="btnChangeDetails" destination="4ra-60-co6" id="qMC-Bf-sDx"/>
                         <outlet property="btnDisplayGoals" destination="yC8-xP-mRO" id="Fwl-eL-JNO"/>
                         <outlet property="btnSetGoals" destination="1Sa-d2-PlV" id="PO1-Y9-l5L"/>
+                        <outlet property="btnSet_D_Steps" destination="opN-lL-Jk8" id="21Y-Xd-cNB"/>
+                        <outlet property="btnSet_D_TimeOFF" destination="VDU-ro-OnE" id="yvM-hI-M8k"/>
+                        <outlet property="btnSet_W_TimeOFF" destination="1FR-51-mAG" id="SGQ-9M-THN"/>
                         <outlet property="btnUpdateImage" destination="kbL-7p-vBf" id="kNM-it-0Z8"/>
                         <outlet property="imgimageview" destination="Uro-FW-tGK" id="mrT-vs-BrB"/>
+                        <outlet property="lblDaily_Steps_Goal" destination="Cf5-2X-ESV" id="bsu-uX-4FX"/>
+                        <outlet property="lblDaily_TimeOFF_Goal" destination="CO1-Sd-33x" id="9pO-Gb-dHs"/>
+                        <outlet property="lblWeekly_TimeOFF_Goal" destination="3UT-zG-lfq" id="iDq-dQ-GGw"/>
                         <outlet property="stckImageStack" destination="2YJ-et-Uxl" id="5tg-cS-yxI"/>
+                        <outlet property="txtActivityLevel" destination="eP7-T3-25w" id="xFb-EH-5vr"/>
+                        <outlet property="txtAddFriend" destination="itH-lW-AGM" id="sUX-F9-HsY"/>
+                        <outlet property="txtAddictionLevel" destination="gjK-ZJ-GfG" id="EVa-xr-Tq1"/>
+                        <outlet property="txtDailySteps" destination="XYP-qV-4FP" id="gfe-PM-Bhp"/>
+                        <outlet property="txtDailyTimeOFF" destination="Idc-Nu-SG3" id="H6P-46-sfX"/>
+                        <outlet property="txtWeeklyTimeOff" destination="4Yd-LE-EJ3" id="WjN-S7-RRF"/>
                         <outlet property="uiviewChangeDetails" destination="Xrf-eH-B3w" id="k7B-yR-w68"/>
                         <outlet property="uiviewViewGoals" destination="mcX-qz-3nv" id="COd-HK-Qhx"/>
                         <outlet property="viewSetGoals" destination="MUr-cZ-fao" id="WqF-Wz-3Rc"/>
