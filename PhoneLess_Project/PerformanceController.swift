@@ -83,7 +83,7 @@ class PerformanceController: UIViewController {
         
         time_Steps = [stepsTaken, timeOut]
         
-        pie_chart_steps.holeColor = UIColor.black
+        pie_chart_main.holeColor = UIColor.black
         updateMainChartData()
     }
     

@@ -23,22 +23,24 @@ class ViewController: UIViewController {
     @IBOutlet weak var txtActivityLevel: YokoTextField!
     @IBOutlet weak var txtAddictionLevel: YokoTextField!
     @IBOutlet weak var btnLoginRegister: UIButton!
-    var user:DatabaseReference!
-    
+    //var user:DatabaseReference!
+    var ref:DatabaseReference!
+    var userID = Auth.auth().currentUser?.uid
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference()
         
     }
-
+// Login or register users
     @IBAction func LoginRegister(_ sender: Any) {
         self.performSegue(withIdentifier: "LogReg", sender: self)
+        //Login users
         if segLogReg.selectedSegmentIndex == 0{
             if let email = txtEmail.text, let password = txtPassword.text{
                 Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
                     if user != nil{
-                        //Redirect to menu after succesful log in/Register
-                        print (user!)
+                        //Redirect to menu after succesful log in
                         self.performSegue(withIdentifier: "LogReg", sender: self)
                     }else{
                         //Change sign in/register label color to red if wrong login/Register
@@ -49,15 +51,28 @@ class ViewController: UIViewController {
                 
             }
         }else{
+            //Register users
             if let email = txtEmail.text, let password = txtPassword.text, let re_password = txtRePassword.text, let name = txtName.text{
                 if email != "" && password != "" && re_password != "" && name != ""{
                     Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-                        self.performSegue(withIdentifier: "LogReg", sender: self)
                         if user != nil{
+                            //Store name detail into DB
+                            if self.txtName.text != ""{
+                                self.ref.child(self.userID!).child("Name").setValue(self.txtName.text)
+                            }
+                            //Stores activity level detail into DB
+                            if self.txtActivityLevel.text != ""{
+                                self.ref.child(self.userID!).child("Activity Level").setValue(self.txtActivityLevel.text)
+                            }
+                            //Stores Addiction level detail into DB
+                            if self.txtAddictionLevel.text != ""{
+                                self.ref.child(self.userID!).child("Addiction Level").setValue(self.txtAddictionLevel.text)
+                            }
+                            //Redirect to menu after succesful Register
                             self.performSegue(withIdentifier: "LogReg", sender: self)
                         }else{
                             self.lblLogin.textColor = UIColor.red
-                            self.lblLogin.text = "Check your email"
+                            self.lblLogin.text = "Check email field"
                         }
                     }
                 }else{
@@ -82,7 +97,7 @@ class ViewController: UIViewController {
         }
         
     }
-    
+    //Set all input field to empty
     @IBAction func segmentLoginRegister(_ sender: Any) {
         if segLogReg.selectedSegmentIndex == 0{
             login()

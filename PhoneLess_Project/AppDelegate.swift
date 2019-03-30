@@ -16,10 +16,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    let displayStatusChanged: CFNotificationCallback = { center, observer, name, object, info in
+        let str = name!.rawValue as CFString
+        if (str == "com.apple.springboard.lockcomplete" as CFString) {
+            let isDisplayStatusLocked = UserDefaults.standard
+            isDisplayStatusLocked.set(true, forKey: "isDisplayStatusLocked")
+            isDisplayStatusLocked.synchronize()
+        }
+    }
+    
+//    let current_user = Auth.auth().currentUser
+//    
+//    var ref:DatabaseReference!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        //ref = Database.database().reference()
+        
+        let isDisplayStatusLocked = UserDefaults.standard
+        isDisplayStatusLocked.set(false, forKey: "isDisplayStatusLocked")
+        isDisplayStatusLocked.synchronize()
+        
+        // Darwin Notification
+        let cfstr = "com.apple.springboard.lockcomplete" as CFString
+        let notificationCenter = CFNotificationCenterGetDarwinNotifyCenter()
+        let function = displayStatusChanged
+        CFNotificationCenterAddObserver(notificationCenter,
+                                        nil,
+                                        function,
+                                        cfstr,
+                                        nil,
+                                        .deliverImmediately)
+        
         return true
     }
 
@@ -31,10 +60,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
+        
+        
+        let isDisplayStatusLocked = UserDefaults.standard
+        if let lock = isDisplayStatusLocked.value(forKey: "isDisplayStatusLocked"){
+            // user locked screen
+            if(lock as! Bool){
+                // do anything you want here
+                print("Home button pressed.")
+            }
+                // user pressed home button
+            else{
+                // do anything you want here
+//                ref.child((current_user?.uid)!).child("kj")
+//                print("Lock button pressed.")
+            }
+        }
+        
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        
+        print("Back to foreground.")
+        //restore lock screen setting
+        let isDisplayStatusLocked = UserDefaults.standard
+        isDisplayStatusLocked.set(false, forKey: "isDisplayStatusLocked")
+        isDisplayStatusLocked.synchronize()
+        
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
