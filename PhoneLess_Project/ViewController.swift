@@ -25,17 +25,23 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnLoginRegister: UIButton!
     //var user:DatabaseReference!
     var ref:DatabaseReference!
-    var userID = Auth.auth().currentUser?.uid
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
         
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        check_User()
+    }
+    
 // Login or register users
     @IBAction func LoginRegister(_ sender: Any) {
-        self.performSegue(withIdentifier: "LogReg", sender: self)
         //Login users
+        // Remove all red labels from screen
+        clear_red()
         if segLogReg.selectedSegmentIndex == 0{
             if let email = txtEmail.text, let password = txtPassword.text{
                 Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
@@ -54,26 +60,34 @@ class ViewController: UIViewController {
             //Register users
             if let email = txtEmail.text, let password = txtPassword.text, let re_password = txtRePassword.text, let name = txtName.text{
                 if email != "" && password != "" && re_password != "" && name != ""{
-                    Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-                        if user != nil{
-                            //Store name detail into DB
-                            if self.txtName.text != ""{
-                                self.ref.child(self.userID!).child("Name").setValue(self.txtName.text)
+                    if password.count > 8{
+                        if password == re_password{
+                            Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+                                if user != nil{
+                                    let userID = Auth.auth().currentUser?.uid
+                                    //Store name detail into DB
+                                    if self.txtName.text != ""{
+                                        self.ref.child(userID!).child("Name").setValue(self.txtName.text)
+                                    }
+                                    //Call in a function that will store activity level details and addiction details if the input are numbers or discard them if otherwise
+                                    self.only_numbers(userid: userID!)
+                                    //Redirect to menu after succesful Register
+                                    self.performSegue(withIdentifier: "LogReg", sender: self)
+                                }else{
+                                    self.lblLogin.textColor = UIColor.red
+                                    self.txtEmail.placeholderColor = UIColor.red
+                                    self.lblLogin.text = "Check email field"
+                                }
                             }
-                            //Stores activity level detail into DB
-                            if self.txtActivityLevel.text != ""{
-                                self.ref.child(self.userID!).child("Activity Level").setValue(self.txtActivityLevel.text)
-                            }
-                            //Stores Addiction level detail into DB
-                            if self.txtAddictionLevel.text != ""{
-                                self.ref.child(self.userID!).child("Addiction Level").setValue(self.txtAddictionLevel.text)
-                            }
-                            //Redirect to menu after succesful Register
-                            self.performSegue(withIdentifier: "LogReg", sender: self)
                         }else{
                             self.lblLogin.textColor = UIColor.red
-                            self.lblLogin.text = "Check email field"
+                            self.lblLogin.text = "Password unmatched"
+                            txtRePassword.placeholderColor = UIColor.red
                         }
+                    }else{
+                        self.lblLogin.textColor = UIColor.red
+                        self.lblLogin.text = "Password must be more than 8 characters!"
+                        txtRePassword.placeholderColor = UIColor.red
                     }
                 }else{
                     //Change sign in/register label color to red if wrong login/Register
@@ -143,6 +157,32 @@ class ViewController: UIViewController {
         txtRePassword.text = ""
         txtActivityLevel.text = ""
         txtAddictionLevel.text = ""
+    }
+    
+    func check_User(){
+        print ("Before")
+        let actual_user = Auth.auth().currentUser
+        if actual_user != nil{
+            self.performSegue(withIdentifier: "LogReg", sender: self)
+            print ("here")
+        }
+    }
+    
+    func only_numbers(userid:String){
+        if txtActivityLevel.text != ""{
+            if let activity = Int(txtActivityLevel.text!){
+               ref.child(userid).child("Activity Level").setValue(String(activity))
+            }else{
+                txtActivityLevel.text = ""
+            }
+        }
+        if txtAddictionLevel.text != ""{
+            if let addiction = Int(txtAddictionLevel.text!){
+               ref.child(userid).child("Addiction Level").setValue(String(addiction))
+            }else{
+                txtAddictionLevel.text = ""
+            }
+        }
     }
 }
 

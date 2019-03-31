@@ -47,61 +47,93 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference()
         set_up()
-
-        // Do any additional setup after loading the view.
+        retrieve_Goal_From_DB()
+        chechImages()
     }
     
     
     @IBAction func set_up_daily_timeoff_Goal(_ sender: Any) {
         if txtDailyTimeOFF.text != ""{
-            ref.child(userID!).child("Daily Time OFF Goal").setValue(txtDailyTimeOFF.text)
-            txtDailyTimeOFF.text = ""
+            if let dTime = Int(txtDailyTimeOFF.text!){
+                ref.child(userID!).child("Daily Time OFF Goal").setValue(String(dTime))
+                txtDailyTimeOFF.text = ""
+            }
+            handle = ref.child(userID!).child("Daily Time OFF Goal").observe(.value, with: { (snapshot) in
+                let time_OFF = snapshot.value as! String
+                if time_OFF != ""{
+                    self.lblDaily_TimeOFF_Goal.text = "\(time_OFF) Mins"
+                }
+            })
         }
     }
     @IBAction func set_up_weekly_timeoff_Goal(_ sender: Any) {
         if txtWeeklyTimeOff.text != ""{
-            ref.child(userID!).child("Weekly Time OFF Goal").setValue(txtWeeklyTimeOff.text)
-            txtWeeklyTimeOff.text = ""
+            if let wTime = Int(txtWeeklyTimeOff.text!){
+                ref.child(userID!).child("Weekly Time OFF Goal").setValue(String(wTime))
+                txtWeeklyTimeOff.text = ""
+            }
+            handle = ref.child(userID!).child("Weekly Time OFF Goal").observe(.value, with: { (snapshot) in
+                let time_OFF = snapshot.value as! String
+                if time_OFF != ""{
+                    self.lblWeekly_TimeOFF_Goal.text = "\(time_OFF) Mins"
+                }
+            })
         }
     }
     
     @IBAction func set_up_daily_steps(_ sender: Any) {
         if txtDailySteps.text != ""{
-            ref.child(userID!).child("Daily Steps Goal").setValue(txtDailySteps.text)
-            txtDailySteps.text = ""
+            if let dSteps = Int(txtDailySteps.text!){
+                ref.child(userID!).child("Daily Steps Goal").setValue(String(dSteps))
+                txtDailySteps.text = ""
+            }
+            handle = ref.child(userID!).child("Daily Steps Goal").observe(.value, with: { (snapshot) in
+                let daily_Steps = snapshot.value as! String
+                if daily_Steps != ""{
+                    self.lblDaily_Steps_Goal.text = "\(daily_Steps) Steps"
+                }
+            })
         }
     }
     
     @IBAction func update_Activity_Level(_ sender: Any) {
         if txtActivityLevel.text != ""{
-            ref.child(userID!).child("Activity Level").setValue(txtActivityLevel.text)
-            txtActivityLevel.text = ""
+            if let activity = Int(txtActivityLevel.text!){
+                ref.child(userID!).child("Activity Level").setValue(activity)
+                txtActivityLevel.text = ""
+            }
         }
     }
     
     @IBAction func update_Device_addiction(_ sender: Any) {
         if txtAddictionLevel.text != ""{
-            ref.child(userID!).child("Addiction Level").setValue(txtAddictionLevel.text)
-            txtAddictionLevel.text = ""
+            if let addiction = Int(txtAddictionLevel.text!){
+                ref.child(userID!).child("Addiction Level").setValue(addiction)
+                txtAddictionLevel.text = ""
+            }
         }
     }
     
     @IBAction func add_friend(_ sender: Any) {
-        let actual_User = Auth.auth().currentUser
-        if actual_User != nil{
-            try? Auth.auth().signOut()
-        }
+        
     }
     
     @IBAction func addImage(_ sender: Any) {
         addImage()
     }
     
+    //Log out function
     @IBAction func logOut(_ sender: Any) {
-        log_register()
+        let actual_User = Auth.auth().currentUser
+        if actual_User != nil{
+            try? Auth.auth().signOut()
+            log_register()
+        }
     }
     
+    //Button that drings dropdown option that allow users to set their goals
     @IBAction func setGoals(_ sender: Any) {
         if viewSetGoals.isHidden == true{
             viewSetGoals.isHidden = false
@@ -120,6 +152,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     
+    //Button that brings drop down option that allow users to see goals
     @IBAction func viewGoals(_ sender: Any) {
         if uiviewViewGoals.isHidden == true{
             uiviewViewGoals.isHidden = false
@@ -138,6 +171,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     
+    //Button that brings drop down option to change user details
     @IBAction func changeDetails(_ sender: Any) {
         if uiviewChangeDetails.isHidden == true{
             uiviewChangeDetails.isHidden = false
@@ -156,6 +190,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     
+    //Button that brings drop down option to add image
     @IBAction func updateImage(_ sender: Any) {
         if stckImageStack.isHidden == true{
             stckImageStack.isHidden = false
@@ -174,7 +209,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     
-    
+    //A function that hiddes objects and change arrow buttons to look the same
     func set_up(){
         viewSetGoals.isHidden = true
         btnSetGoals.setImage(UIImage.init(named: "expand"), for: .normal)
@@ -186,6 +221,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         btnUpdateImage.setImage(UIImage.init(named: "expamd"), for: .normal)
     }
     
+    //A function that allows users to add image into the application through the phone library or camera
     func addImage(){
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
@@ -210,6 +246,8 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         self.present(actionSheet, animated: true, completion: nil)
     }
     
+    //Default function
+    //Storing picked image into DB
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         
@@ -224,19 +262,22 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
                 return
             }
         }
+        
+        chechImages()
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
     
+    //Get image from DB and add to the profile
     func chechImages(){
         let imagepath = userID
-        print (imagepath! + "/Images/Number1")
-        let image1 = Storage.storage().reference(withPath: imagepath! + "Profile Image")
+        let image1 = Storage.storage().reference(withPath: imagepath! + "/Profile Image")
         
         image1.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if error != nil {
+                print("We trhough")
                 // Add logo image if no image found
                 self.imgimageview.image = UIImage(named: "Logo")
             } else {
@@ -246,9 +287,39 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
             }
         }
     }
-    
+    //A function that call out the very first page of the application
     func log_register(){
         let log_out = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
         self.present(log_out, animated: true, completion: nil)
+    }
+    //Retrieve goal data from DB
+    func retrieve_Goal_From_DB(){
+        //Retrieve daily time off goal from DB
+        handle = ref.child(userID!).child("Daily Time OFF Goal").observe(.value, with: { (snapshot) in
+            if snapshot.value as? String != nil{
+                let time_OFF = snapshot.value as! String
+                if time_OFF != ""{
+                    self.lblDaily_TimeOFF_Goal.text = "\(time_OFF) Mins"
+                }
+            }
+        })
+        //Retrieve weekly time off goal from DB
+        handle = ref.child(userID!).child("Weekly Time OFF Goal").observe(.value, with: { (snapshot) in
+            if snapshot.value as? String != nil{
+                let time_OFF = snapshot.value as! String
+                if time_OFF != ""{
+                    self.lblWeekly_TimeOFF_Goal.text = "\(time_OFF) Mins"
+                }
+            }
+        })
+        //Retrieve daily steps goal from DB
+        handle = ref.child(userID!).child("Daily Steps Goal").observe(.value, with: { (snapshot) in
+            if snapshot.value as? String != nil{
+                let daily_Steps = snapshot.value as! String
+                if daily_Steps != ""{
+                    self.lblDaily_Steps_Goal.text = "\(daily_Steps) Steps"
+                }
+            }
+        })
     }
 }

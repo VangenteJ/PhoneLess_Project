@@ -31,6 +31,8 @@ class ProfileController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
+        get_data()
+        chechImages()
         
     }
     
@@ -59,31 +61,57 @@ class ProfileController: UIViewController {
         })
         // Get daily time off personal best info from DB
         handle = ref?.child(userID!).child("Best Daily Time OFF").observe(.value, with: { (snpashot) in
-            let uBestDTimeOFF = snpashot.value as! String
-            if uBestDTimeOFF != ""{
-                self.pbest_Daily_Timeoff.text = uBestDTimeOFF
+            if snpashot.value as? String != nil{
+                let uBestDTimeOFF = snpashot.value as! String
+                if uBestDTimeOFF != ""{
+                    self.pbest_Daily_Timeoff.text = uBestDTimeOFF
+                }
             }
         })
         // Get weekly time off personal best info from DB
         handle = ref?.child(userID!).child("Best Weekly Time OFF").observe(.value, with: { (snpashot) in
-            let uBestWTimeOFF = snpashot.value as! String
-            if uBestWTimeOFF != ""{
-                self.pbest_Weekly_Timeoff.text = uBestWTimeOFF
+            if snpashot.value as? String != nil{
+                let uBestWTimeOFF = snpashot.value as! String
+                if uBestWTimeOFF != ""{
+                    self.pbest_Weekly_Timeoff.text = uBestWTimeOFF
+                }
             }
         })
         // Get daily steps personal best info from DB
         handle = ref?.child(userID!).child("Best Daily Steps").observe(.value, with: { (snpashot) in
-            let uBestDSteps = snpashot.value as! String
-            if uBestDSteps != ""{
-                self.pbest_Daily_Steps.text = uBestDSteps
+            if snpashot.value as? String != nil{
+                let uBestDSteps = snpashot.value as! String
+                if uBestDSteps != ""{
+                    self.pbest_Daily_Steps.text = uBestDSteps
+                }
             }
         })
         // Get weekly steps personal best info from DB
         handle = ref?.child(userID!).child("Best Weekly Steps").observe(.value, with: { (snpashot) in
-            let uBestWSteps = snpashot.value as! String
-            if uBestWSteps != ""{
-                self.pbest_Weekly_Steps.text = uBestWSteps
+            if snpashot.value as? String != nil{
+                let uBestWSteps = snpashot.value as! String
+                if uBestWSteps != ""{
+                    self.pbest_Weekly_Steps.text = uBestWSteps
+                }
             }
         })
+    }
+    
+    //Get image from DB and add to the profile
+    func chechImages(){
+        let imagepath = userID
+        let image1 = Storage.storage().reference(withPath: imagepath! + "/Profile Image")
+        
+        image1.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if error != nil {
+                print("We trhough")
+                // Add logo image if no image found
+                self.userImg.image = UIImage(named: "Logo")
+            } else {
+                // Data for "images"
+                self.userImg.image = UIImage(data: data!)
+                
+            }
+        }
     }
 }
