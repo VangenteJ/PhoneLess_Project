@@ -11,6 +11,24 @@
     </dependencies>
     <scenes>
         <!--View Controller-->
+        <scene sceneID="bWa-Rl-SdS">
+            <objects>
+                <viewController storyboardIdentifier="forgot_password" id="Ye1-uT-9gJ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Z2i-jc-IXz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="mfW-JK-2OC"/>
+                    </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="Blogin" id="fnB-9U-erL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XSB-TC-NoW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-6976" y="-1719"/>
+        </scene>
+        <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="PhoneLess_Project" customModuleProvider="target" sceneMemberID="viewController">
@@ -192,14 +210,21 @@
                                                             </textField>
                                                         </subviews>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="dbL-bP-gEt">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="dbL-bP-gEt">
                                                         <rect key="frame" x="0.0" y="445.5" width="294" height="30"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cam-Tb-m3s">
-                                                                <rect key="frame" x="118.5" y="0.0" width="57" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="147" height="30"/>
                                                                 <state key="normal" title="Register"/>
                                                                 <connections>
                                                                     <action selector="LoginRegister:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nKv-Aa-DRm"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NEl-Gc-y7f">
+                                                                <rect key="frame" x="147" y="0.0" width="147" height="30"/>
+                                                                <state key="normal" title="Forgot Password?"/>
+                                                                <connections>
+                                                                    <action selector="forgot_password:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0N1-Jf-yMW"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -244,6 +269,7 @@
                         <outlet property="txtPassword" destination="ZYf-Fl-jay" id="FZW-Kr-Pip"/>
                         <outlet property="txtRePassword" destination="efu-Kj-aqf" id="FwW-pF-ad6"/>
                         <segue destination="k9x-Zc-CtI" kind="show" identifier="LogReg" id="tb1-Yc-jMd"/>
+                        <segue destination="Ye1-uT-9gJ" kind="show" identifier="forgot" id="Lfl-bk-bVa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

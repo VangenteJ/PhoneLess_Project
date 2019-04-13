@@ -124,6 +124,11 @@ class ViewController: UIViewController {
         }
     }
     
+    
+    @IBAction func forgot_password(_ sender: Any) {
+        
+    }
+    
     func login(){
         btnLoginRegister.setTitle("Login", for: .normal)
         lblLogin.text = "Login"
