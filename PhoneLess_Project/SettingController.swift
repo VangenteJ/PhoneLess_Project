@@ -33,6 +33,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
     @IBOutlet weak var lblDaily_TimeOFF_Goal: UILabel!
     @IBOutlet weak var lblWeekly_TimeOFF_Goal: UILabel!
     @IBOutlet weak var lblDaily_Steps_Goal: UILabel!
+    @IBOutlet weak var lblUserUID: UILabel!
     
     
     @IBOutlet weak var btnSet_D_TimeOFF: UIButton!
@@ -51,6 +52,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         set_up()
         retrieve_Goal_From_DB()
         chechImages()
+        lblUserUID.text = userID
     }
     
     

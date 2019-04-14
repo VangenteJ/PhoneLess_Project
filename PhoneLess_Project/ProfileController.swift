@@ -40,23 +40,29 @@ class ProfileController: UIViewController {
     func get_data(){
         // Get name info from DB
         handle = ref?.child(userID!).child("Name").observe(.value, with: { (snpashot) in
-            let uName = snpashot.value as! String
-            if uName != ""{
-                self.userName.text = uName
+            if snpashot.value as? String != nil{
+                let uName = snpashot.value as! String
+                if uName != ""{
+                    self.userName.text = uName
+                }
             }
         })
         // Get addiction info from DB
         handle = ref?.child(userID!).child("Addiction Level").observe(.value, with: { (snpashot) in
-            let uAddiction = snpashot.value as! String
-            if uAddiction != ""{
-                self.userAddictionLevel.text = uAddiction
+            if snpashot.value as? String != nil{
+                let uAddiction = snpashot.value as! String
+                if uAddiction != ""{
+                    self.userAddictionLevel.text = uAddiction
+                }
             }
         })
         // Get activity info from DB
         handle = ref?.child(userID!).child("Activity Level").observe(.value, with: { (snpashot) in
-            let uActivity = snpashot.value as! String
-            if uActivity != ""{
-                self.userActivityLevel.text = uActivity
+            if snpashot.value as? String != nil{
+                let uActivity = snpashot.value as! String
+                if uActivity != ""{
+                    self.userActivityLevel.text = uActivity
+                }
             }
         })
         // Get daily time off personal best info from DB

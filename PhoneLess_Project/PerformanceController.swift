@@ -8,6 +8,8 @@
 
 import UIKit
 import Charts
+import Firebase
+import FirebaseAuth
 
 class PerformanceController: UIViewController {
     @IBOutlet weak var imgImage: UIImageView!
@@ -32,24 +34,27 @@ class PerformanceController: UIViewController {
     var steps = [PieChartDataEntry]()
     var time_Steps = [PieChartDataEntry]()
     
+    var userID = Auth.auth().currentUser?.uid
+    var ref:DatabaseReference!
+    var handle: DatabaseHandle?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        firstChart()
-        secondChart()
-        thirdChart()
+        ref = Database.database().reference()
+        get_chart_data_fromDB()
 
         // Do any additional setup after loading the view.
     }
     
     
 
-    func firstChart(){
-        pie_chart_time.chartDescription?.text = ""
+    func firstChart(dataOn:Double, dataOff:Double){
+        pie_chart_time.chartDescription?.text = "Steps"
         
-        performanceTime.value = 20.2
+        performanceTime.value = dataOn
         performanceTime.label = "On Target"
         
-        offTime.value = 10.3
+        offTime.value = dataOff
         offTime.label = "Off"
         
         timeOFF = [performanceTime, offTime]
@@ -57,13 +62,13 @@ class PerformanceController: UIViewController {
         updateChartData()
     }
     
-    func secondChart(){
-        pie_chart_steps.chartDescription?.text = ""
+    func secondChart(dataOn:Double, dataOff:Double){
+        pie_chart_steps.chartDescription?.text = "Time OFF"
         
-        performanceStep.value = 90.5
+        performanceStep.value = dataOn
         performanceStep.label = "On Target"
         
-        offStep.value = 9.5
+        offStep.value = dataOff
         offStep.label = "Off"
         
         steps = [performanceStep, offStep]
@@ -72,13 +77,13 @@ class PerformanceController: UIViewController {
         updateSecondChartData()
     }
     
-    func thirdChart(){
-        pie_chart_main.chartDescription?.text = ""
+    func thirdChart(dataS:Double, dataT:Double){
+        pie_chart_main.chartDescription?.text = "Time and Steps"
         
-        stepsTaken.value = 90.5
+        stepsTaken.value = dataS
         stepsTaken.label = "Steps Taken"
         
-        timeOut.value = 9.5
+        timeOut.value = dataT
         timeOut.label = "Time Off"
         
         time_Steps = [stepsTaken, timeOut]
@@ -115,5 +120,49 @@ class PerformanceController: UIViewController {
         chartDataSet.colors = colors
         
         pie_chart_main.data = chartData
+    }
+    
+    func get_chart_data_fromDB(){
+        let time = "Time1"
+        let steps = "Step1"
+        handle = ref?.child(userID!).child(time).observe(.value, with: { (snapshot) in
+            if snapshot.value as? String != nil{
+                let timeData = snapshot.value as? Double
+                
+                self.handle = self.ref?.child(self.userID!).child("Daily Time OFF Goal").observe(.value, with: { (snapshot) in
+                    if snapshot.value as? String != nil{
+                        let timeGoal = snapshot.value as? Double
+                        var off = Int(timeData! - timeGoal!)
+                        if off < 0 {
+                            off = 0
+                            self.secondChart(dataOn: timeData!, dataOff: Double(off))
+                            
+                        }
+                    }
+                })
+                
+            self.handle = self.ref?.child(self.userID!).child(steps).observe(.value, with: { (snapshot) in
+                if snapshot.value as? String != nil{
+                    let stepsData = snapshot.value as? Double
+                    
+                    self.handle = self.ref?.child(self.userID!).child("Daily Steps Goal").observe(.value, with: { (snapshot) in
+                        if snapshot.value as? String != nil{
+                            let stepsGoal = snapshot.value as? Double
+                            var off = Int(stepsData! - stepsGoal!)
+                            if off < 0 {
+                                off = 0
+                                self.firstChart(dataOn: stepsData!, dataOff: Double(off))
+                            }
+                        }
+                    })
+                    self.thirdChart(dataS: stepsData!, dataT: timeData!)
+                }
+            })
+            }else{
+                self.firstChart(dataOn: 0, dataOff: 0)
+                self.secondChart(dataOn: 0, dataOff: 0)
+                self.thirdChart(dataS: 0, dataT: 0)
+            }
+        })
     }
 }
