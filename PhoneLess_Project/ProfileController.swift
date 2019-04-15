@@ -31,9 +31,11 @@ class ProfileController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         get_data()
         chechImages()
-        
     }
     
     // Get info from DB
@@ -43,6 +45,7 @@ class ProfileController: UIViewController {
             if snpashot.value as? String != nil{
                 let uName = snpashot.value as! String
                 if uName != ""{
+                    print("Name got printed")
                     self.userName.text = uName
                 }
             }
@@ -52,7 +55,8 @@ class ProfileController: UIViewController {
             if snpashot.value as? String != nil{
                 let uAddiction = snpashot.value as! String
                 if uAddiction != ""{
-                    self.userAddictionLevel.text = uAddiction
+                    print("Addiction got printed")
+                    self.userAddictionLevel.text = "Waka"
                 }
             }
         })
@@ -61,6 +65,7 @@ class ProfileController: UIViewController {
             if snpashot.value as? String != nil{
                 let uActivity = snpashot.value as! String
                 if uActivity != ""{
+                    print("Activity got printed")
                     self.userActivityLevel.text = uActivity
                 }
             }

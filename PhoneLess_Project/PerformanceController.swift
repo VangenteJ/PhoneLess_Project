@@ -12,10 +12,11 @@ import Firebase
 import FirebaseAuth
 
 class PerformanceController: UIViewController {
-    @IBOutlet weak var imgImage: UIImageView!
     @IBOutlet weak var segMonthDay: UISegmentedControl!
     @IBOutlet weak var lblMonthToSearch: UILabel!
     @IBOutlet weak var overaltargetmettittle: UILabel!
+    @IBOutlet weak var btnGoBack: UIButton!
+    @IBOutlet weak var btnGoForth: UIButton!
     
     @IBOutlet weak var pie_chart_time: PieChartView!
     @IBOutlet weak var pie_chart_steps: PieChartView!
@@ -38,6 +39,9 @@ class PerformanceController: UIViewController {
     var ref:DatabaseReference!
     var handle: DatabaseHandle?
     
+    var timeDA = "Time1"
+    var stepsDA = "Steps1"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
@@ -52,10 +56,10 @@ class PerformanceController: UIViewController {
         pie_chart_time.chartDescription?.text = "Steps"
         
         performanceTime.value = dataOn
-        performanceTime.label = "On Target"
+        performanceTime.label = ""
         
         offTime.value = dataOff
-        offTime.label = "Off"
+        offTime.label = ""
         
         timeOFF = [performanceTime, offTime]
         pie_chart_time.holeColor = UIColor.black
@@ -66,10 +70,10 @@ class PerformanceController: UIViewController {
         pie_chart_steps.chartDescription?.text = "Time OFF"
         
         performanceStep.value = dataOn
-        performanceStep.label = "On Target"
+        performanceStep.label = ""
         
         offStep.value = dataOff
-        offStep.label = "Off"
+        offStep.label = ""
         
         steps = [performanceStep, offStep]
         
@@ -123,39 +127,36 @@ class PerformanceController: UIViewController {
     }
     
     func get_chart_data_fromDB(){
-        let time = "Time1"
-        let steps = "Step1"
-        handle = ref?.child(userID!).child(time).observe(.value, with: { (snapshot) in
+        handle = ref?.child(userID!).child(timeDA).observe(.value, with: { (snapshot) in
             if snapshot.value as? String != nil{
-                let timeData = snapshot.value as? Double
+                let timeData = snapshot.value as! String
+                let timeDa = Int(timeData)
                 
                 self.handle = self.ref?.child(self.userID!).child("Daily Time OFF Goal").observe(.value, with: { (snapshot) in
                     if snapshot.value as? String != nil{
-                        let timeGoal = snapshot.value as? Double
-                        var off = Int(timeData! - timeGoal!)
-                        if off < 0 {
-                            off = 0
-                            self.secondChart(dataOn: timeData!, dataOff: Double(off))
-                            
-                        }
+                        let timeGoal = snapshot.value as! String
+                        let timeGo = Int(timeGoal)
+                        let off = Double(timeGo! - timeDa!)
+                        self.secondChart(dataOn: Double(timeDa!), dataOff: Double(off))
                     }
                 })
                 
-            self.handle = self.ref?.child(self.userID!).child(steps).observe(.value, with: { (snapshot) in
+                self.handle = self.ref?.child(self.userID!).child(self.stepsDA).observe(.value, with: { (snapshot) in
                 if snapshot.value as? String != nil{
-                    let stepsData = snapshot.value as? Double
+                    let stepsData = snapshot.value as! String
+                    let stepsDa = Int(stepsData)
                     
                     self.handle = self.ref?.child(self.userID!).child("Daily Steps Goal").observe(.value, with: { (snapshot) in
                         if snapshot.value as? String != nil{
-                            let stepsGoal = snapshot.value as? Double
-                            var off = Int(stepsData! - stepsGoal!)
-                            if off < 0 {
-                                off = 0
-                                self.firstChart(dataOn: stepsData!, dataOff: Double(off))
-                            }
+                            let stepsGoal = snapshot.value as! String
+                            let stepsGo = Int(stepsGoal)
+                            print("stepgo")
+                            print(stepsGo!)
+                            let off = Double(stepsGo! - stepsDa!)
+                            self.firstChart(dataOn: Double(stepsDa!), dataOff: Double(off))
                         }
                     })
-                    self.thirdChart(dataS: stepsData!, dataT: timeData!)
+                    self.thirdChart(dataS: Double(stepsDa!), dataT: Double(timeDa!))
                 }
             })
             }else{
@@ -164,5 +165,89 @@ class PerformanceController: UIViewController {
                 self.thirdChart(dataS: 0, dataT: 0)
             }
         })
+    }
+    
+    @IBAction func search_back(_ sender: Any) {
+        if segMonthDay.selectedSegmentIndex == 0{
+            if stepsDA == "Steps5" && timeDA == "Time5"{
+                stepsDA = "Steps4"
+                timeDA = "Time4"
+                lblMonthToSearch.text = "05-02-19"
+                get_chart_data_fromDB()
+                
+            }else if stepsDA == "Steps4" && timeDA == "Time4"{
+                stepsDA = "Steps3"
+                timeDA = "Time3"
+                lblMonthToSearch.text = "04-02-19"
+                get_chart_data_fromDB()
+                
+            }else if stepsDA == "Steps3" && timeDA == "Time3"{
+                stepsDA = "Steps2"
+                timeDA = "Time2"
+                lblMonthToSearch.text = "03-02-19"
+                get_chart_data_fromDB()
+                
+            }else if stepsDA == "Steps2" && timeDA == "Time2"{
+                stepsDA = "Steps1"
+                timeDA = "Time1"
+                lblMonthToSearch.text = "02-02-19"
+                get_chart_data_fromDB()
+            }
+        }else{
+            if stepsDA == "Week2Steps" && timeDA == "Week2Time"{
+                stepsDA = "Week1Steps"
+                timeDA = "Week1Time"
+                lblMonthToSearch.text = "March"
+                get_chart_data_fromDB()
+            }
+        }
+    }
+    
+    @IBAction func search_forward(_ sender: Any) {
+        if segMonthDay.selectedSegmentIndex == 0{
+            if stepsDA == "Steps1" && timeDA == "Time1"{
+                stepsDA = "Steps2"
+                timeDA = "Time2"
+                lblMonthToSearch.text = "03-02-19"
+                get_chart_data_fromDB()
+            }else if stepsDA == "Steps2" && timeDA == "Time2"{
+                stepsDA = "Steps3"
+                timeDA = "Time3"
+                lblMonthToSearch.text = "04-02-19"
+                get_chart_data_fromDB()
+                
+            }else if stepsDA == "Steps3" && timeDA == "Time3"{
+                stepsDA = "Steps4"
+                timeDA = "Time4"
+                lblMonthToSearch.text = "05-02-19"
+                get_chart_data_fromDB()
+                
+            }else if stepsDA == "Steps4" && timeDA == "Time4"{
+                stepsDA = "Steps5"
+                timeDA = "Time5"
+                lblMonthToSearch.text = "20-02-19"
+                get_chart_data_fromDB()
+            }
+        }else{
+            if stepsDA == "Week1Steps" && timeDA == "Week1Time"{
+                stepsDA = "Week2Steps"
+                timeDA = "Week2Time"
+                lblMonthToSearch.text = "April"
+                get_chart_data_fromDB()
+            }
+        }
+    }
+    @IBAction func segueDay_Month(_ sender: Any) {
+        if segMonthDay.selectedSegmentIndex == 0{
+            stepsDA = "Steps5"
+            timeDA = "Time5"
+            lblMonthToSearch.text = "20-02-19"
+            get_chart_data_fromDB()
+        }else{
+            stepsDA = "Week2Steps"
+            timeDA = "Week2Time"
+            lblMonthToSearch.text = "April"
+            get_chart_data_fromDB()
+        }
     }
 }
