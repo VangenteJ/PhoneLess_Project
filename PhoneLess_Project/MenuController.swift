@@ -66,7 +66,7 @@ class MenuController: UIViewController {
             if error == nil{
                 DispatchQueue.main.async {
                     self.steps_Taken = data?.numberOfSteps.stringValue
-                    self.ref.child((self.current_user?.uid)!).child("Steps").setValue(self.steps_Taken)
+                    self.ref.child((self.current_user?.uid)!).child("Steps6").setValue(self.steps_Taken)
                     self.txtStepsQuote.text = "You have walked: \(String(describing: self.steps_Taken)) steps today!"
                 }
             }else{return}

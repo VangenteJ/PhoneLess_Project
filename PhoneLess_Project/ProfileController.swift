@@ -56,7 +56,7 @@ class ProfileController: UIViewController {
                 let uAddiction = snpashot.value as! String
                 if uAddiction != ""{
                     print("Addiction got printed")
-                    self.userAddictionLevel.text = "Waka"
+                    self.userAddictionLevel.text = uAddiction
                 }
             }
         })
@@ -106,7 +106,93 @@ class ProfileController: UIViewController {
                 }
             }
         })
+        personal_best()
     }
+    
+    // Check and set the personal best
+    func personal_best(){
+        // Get daily time off personal best info from DB
+        handle = ref?.child(userID!).child("Best Daily Time OFF").observe(.value, with: { (snpashot) in
+            if snpashot.value as? String != nil{
+                let uBestDTimeOFF = snpashot.value as! String
+                
+                self.handle = self.ref?.child(self.userID!).child("Time5").observe(.value, with: { (snpashot) in
+                    if snpashot.value as? String != nil{
+                        let uTime = snpashot.value as! String
+                        
+                        if let actualUTime = Int(uTime){
+                            if let bestTime = Int(uBestDTimeOFF){
+                                if actualUTime > bestTime{
+                                    self.pbest_Daily_Timeoff.text = String(actualUTime)
+                                }
+                            }
+                        }
+                    }
+                })
+                
+            }
+        })
+        // Get weekly time off personal best info from DB
+        handle = ref?.child(userID!).child("Best Weekly Time OFF").observe(.value, with: { (snpashot) in
+            if snpashot.value as? String != nil{
+                let uBestWTimeOFF = snpashot.value as! String
+                
+                self.handle = self.ref?.child(self.userID!).child("Week2Time").observe(.value, with: { (snpashot) in
+                    if snpashot.value as? String != nil{
+                        let uTime = snpashot.value as! String
+                        
+                        if let actualUTime = Int(uTime){
+                            if let bestTime = Int(uBestWTimeOFF){
+                                if actualUTime > bestTime{
+                                    self.pbest_Weekly_Timeoff.text = String(actualUTime)
+                                }
+                            }
+                        }
+                    }
+                })
+            }
+        })
+        // Get daily steps personal best info from DB
+        handle = ref?.child(userID!).child("Best Daily Steps").observe(.value, with: { (snpashot) in
+            if snpashot.value as? String != nil{
+                let uBestDSteps = snpashot.value as! String
+                
+                self.handle = self.ref?.child(self.userID!).child("Steps5").observe(.value, with: { (snpashot) in
+                    if snpashot.value as? String != nil{
+                        let uSteps = snpashot.value as! String
+                        
+                        if let actualUSteps = Int(uSteps){
+                            if let bestSteps = Int(uBestDSteps){
+                                if actualUSteps > bestSteps{
+                                    self.pbest_Daily_Steps.text = String(actualUSteps)
+                                }
+                            }
+                        }
+                    }
+                })
+            }
+        })
+        // Get weekly steps personal best info from DB
+        handle = ref?.child(userID!).child("Best Weekly Steps").observe(.value, with: { (snpashot) in
+            if snpashot.value as? String != nil{
+                let uBestWSteps = snpashot.value as! String
+                self.handle = self.ref?.child(self.userID!).child("Week2Steps").observe(.value, with: { (snpashot) in
+                    if snpashot.value as? String != nil{
+                        let uSteps = snpashot.value as! String
+                        
+                        if let actualUSteps = Int(uSteps){
+                            if let bestSteps = Int(uBestWSteps){
+                                if actualUSteps > bestSteps{
+                                    self.pbest_Weekly_Steps.text = String(actualUSteps)
+                                }
+                            }
+                        }
+                    }
+                })
+            }
+        })
+    }
+    
     
     //Get image from DB and add to the profile
     func chechImages(){

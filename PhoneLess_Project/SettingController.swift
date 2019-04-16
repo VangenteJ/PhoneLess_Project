@@ -103,7 +103,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
     @IBAction func update_Activity_Level(_ sender: Any) {
         if txtActivityLevel.text != ""{
             if let activity = Int(txtActivityLevel.text!){
-                ref.child(userID!).child("Activity Level").setValue(activity)
+                ref.child(userID!).child("Activity Level").setValue(String(activity))
                 txtActivityLevel.text = ""
             }
         }
@@ -112,7 +112,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
     @IBAction func update_Device_addiction(_ sender: Any) {
         if txtAddictionLevel.text != ""{
             if let addiction = Int(txtAddictionLevel.text!){
-                ref.child(userID!).child("Addiction Level").setValue(addiction)
+                ref.child(userID!).child("Addiction Level").setValue(String(addiction))
                 txtAddictionLevel.text = ""
             }
         }
