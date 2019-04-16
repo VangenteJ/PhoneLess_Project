@@ -41,17 +41,57 @@ class MenuController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
+        steps_label()
+        update_Steps()
         chechImages()
+        beenNagged()
 
         // Do any additional setup after loading the view.
     }
     @IBAction func poke(_ sender: Any) {
-        btnName1.setTitle("Joel", for: .normal)
-        btnName2.setTitle("Alisha", for: .normal)
+        handle = ref?.child(userID!).child("New Friend1").observe(.value, with: { (snpashot) in
+            if snpashot.value as? String != nil{
+                let friend1 = snpashot.value as! String
+                self.handle = self.ref?.child(friend1).child("Name").observe(.value, with: { (snpashot) in
+                    if snpashot.value as? String != nil{
+                        let f1Name = snpashot.value as! String
+                        
+                        self.handle = self.ref?.child(friend1).child("Time5").observe(.value, with: { (snpashot) in
+                            if snpashot.value as? String != nil{
+                                let f1Time = snpashot.value as! String
+                                
+                                self.ref?.child(self.userID!).child("Time5").observe(.value, with: { (snpashot) in
+                                    if snpashot.value as? String != nil{
+                                        let userTime = snpashot.value as! String
+                                        
+                                        if let friendTime = Int(f1Time){
+                                            if let userT = Int(userTime){
+                                                if userT > friendTime{
+                                                    self.btnName1.setTitle(f1Name, for: .normal)
+                                                }
+                                            }
+                                        }
+                                    }
+                                })
+                            }
+                        })
+                    }
+                    })
+                }
+            })
     }
     @IBAction func name1Click(_ sender: Any) {
         btnName1.setTitle("", for: .normal)
         btnName2.setTitle("", for: .normal)
+        
+        handle = ref?.child(userID!).child("New Friend1").observe(.value, with: { (snpashot) in
+            if snpashot.value as? String != nil{
+                let friend1 = snpashot.value as! String
+                self.ref.child(friend1).child("Nagged").setValue("1")
+            }
+        })
+        
+        
     }
     
     @IBAction func name2Click(_ sender: Any) {
@@ -79,11 +119,29 @@ class MenuController: UIViewController {
             stepCounter()
         }
         
+        handle = ref.child(userID!).child("Daily Steps Goal").observe(.value, with: { (snapshot) in
+            if snapshot.value as? String != nil{
+                let daily_Steps = snapshot.value as! String
+                if let dSteps = Int(daily_Steps){
+                    if let actualSteps = Int(self.steps_Taken!){
+                        if actualSteps > 500 && actualSteps < dSteps{
+                            self.txtStepsQuote.text = "Not on the goal yet but you will get there if you keep at it"
+                        }else if actualSteps > 1000 && actualSteps < dSteps{
+                            self.txtStepsQuote.text = "You did not quite achieve it yet but you did better than yesterday!"
+                        }else if actualSteps > dSteps{
+                            self.txtStepsQuote.text = "You should give yourself a pat in the back for reaching the goal, you can push that extra mile now!"
+                        }
+                    }
+                }
+            }
+        })
     }
     
     func steps_label(){
-        if steps_Taken == nil{
-            self.txtStepsQuote.text = "You have walked: 0 steps today!"
+        if steps_Taken == nil || steps_Taken == "0"{
+            self.txtSteps.text = "You have walked: 0 steps today!"
+            self.txtStepsQuote.text = "A 1000 miles journey starts with a single step!"
+            steps_Taken = "0"
         }
     }
     
@@ -103,6 +161,37 @@ class MenuController: UIViewController {
                 
             }
         }
+    }
+    
+    func beenNagged(){
+        handle = ref?.child(userID!).child("Nagged").observe(.value, with: { (snpashot) in
+            if snpashot.value as? String != nil{
+                let nag = snpashot.value as! String
+                self.handle = self.ref?.child(self.userID!).child("New Friend1").observe(.value, with: { (snpashot) in
+                    if snpashot.value as? String != nil{
+                        let friend1 = snpashot.value as! String
+                        self.handle = self.ref?.child(friend1).child("Name").observe(.value, with: { (snpashot) in
+                            if snpashot.value as? String != nil{
+                                let f1Name = snpashot.value as! String
+                                if nag == "1"{
+                                    self.createAlert(title: "Nagged", message: "\(f1Name) Believes that you cannot live without your device!")
+                                }
+                            }
+                        })
+                    }
+                })
+                
+            }
+        })
+    }
+    
+    func createAlert (title:String, message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Guilty", style: UIAlertAction.Style.default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+            self.ref.child(self.userID!).child("Nagged").setValue("0")
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
 }

@@ -148,7 +148,8 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
     
     @IBAction func delete_Friend(_ sender: Any) {
         if txtAddFriend.text != ""{
-           self.ref.child(self.userID!).child("New Friend1").setValue("h")
+           self.ref.child(self.userID!).child("New Friend1").setValue("New")
+            self.txtAddFriend.text = ""
         }
     }
     
@@ -251,7 +252,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         uiviewChangeDetails.isHidden = true
         btnChangeDetails.setImage(UIImage.init(named: "expand"), for: .normal)
         stckImageStack.isHidden = true
-        btnUpdateImage.setImage(UIImage.init(named: "expamd"), for: .normal)
+        btnUpdateImage.setImage(UIImage.init(named: "expand"), for: .normal)
     }
     
     //A function that allows users to add image into the application through the phone library or camera
