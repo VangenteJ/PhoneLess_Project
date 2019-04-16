@@ -63,9 +63,11 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
                 txtDailyTimeOFF.text = ""
             }
             handle = ref.child(userID!).child("Daily Time OFF Goal").observe(.value, with: { (snapshot) in
-                let time_OFF = snapshot.value as! String
-                if time_OFF != ""{
-                    self.lblDaily_TimeOFF_Goal.text = "\(time_OFF) Mins"
+                if snapshot.value as? String != nil{
+                    let time_OFF = snapshot.value as! String
+                    if time_OFF != ""{
+                        self.lblDaily_TimeOFF_Goal.text = "\(time_OFF) Mins"
+                    }
                 }
             })
         }
@@ -77,9 +79,11 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
                 txtWeeklyTimeOff.text = ""
             }
             handle = ref.child(userID!).child("Weekly Time OFF Goal").observe(.value, with: { (snapshot) in
-                let time_OFF = snapshot.value as! String
-                if time_OFF != ""{
-                    self.lblWeekly_TimeOFF_Goal.text = "\(time_OFF) Mins"
+                if snapshot.value as? String != nil{
+                    let time_OFF = snapshot.value as! String
+                    if time_OFF != ""{
+                        self.lblWeekly_TimeOFF_Goal.text = "\(time_OFF) Mins"
+                    }
                 }
             })
         }
@@ -92,9 +96,11 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
                 txtDailySteps.text = ""
             }
             handle = ref.child(userID!).child("Daily Steps Goal").observe(.value, with: { (snapshot) in
-                let daily_Steps = snapshot.value as! String
-                if daily_Steps != ""{
-                    self.lblDaily_Steps_Goal.text = "\(daily_Steps) Steps"
+                if snapshot.value as? String != nil{
+                    let daily_Steps = snapshot.value as! String
+                    if daily_Steps != ""{
+                        self.lblDaily_Steps_Goal.text = "\(daily_Steps) Steps"
+                    }
                 }
             })
         }
@@ -119,8 +125,33 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
     }
     
     @IBAction func add_friend(_ sender: Any) {
-        
+        handle = ref.child(userID!).child("New Friend1").observe(.value, with: { (snapshot) in
+            if snapshot.value as? String == nil{
+                if self.txtAddFriend.text != ""{
+                    let new_friend = self.txtAddFriend.text
+                    self.ref.child(self.userID!).child("New Friend1").setValue(new_friend)
+                    self.txtAddFriend.text = ""
+                }else{
+                    self.handle = self.ref.child(self.userID!).child("New Friend1").observe(.value, with: { (snapshot) in
+                        if snapshot.value as? String == nil{
+                            if self.txtAddFriend.text != ""{
+                                let new_friend = self.txtAddFriend.text
+                                self.ref.child(self.userID!).child("New Friend2").setValue(new_friend)
+                                self.txtAddFriend.text = ""
+                            }
+                        }
+                    })
+                }
+            }
+        })
     }
+    
+    @IBAction func delete_Friend(_ sender: Any) {
+        if txtAddFriend.text != ""{
+           self.ref.child(self.userID!).child("New Friend1").setValue("h")
+        }
+    }
+    
     
     @IBAction func addImage(_ sender: Any) {
         addImage()
