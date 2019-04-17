@@ -70,58 +70,58 @@ class ProfileController: UIViewController {
         super.viewDidAppear(animated)
         
         // Starting the animation chain
-        UIView.animate(withDuration: 1, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.lblPagetitle.alpha = 1
         }) { (true) in
-            UIView.animate(withDuration: 1, animations: {
+            UIView.animate(withDuration: 0.2, animations: {
                 self.userImg.alpha = 1
             }, completion: { (true) in
-                UIView.animate(withDuration: 1, animations: {
+                UIView.animate(withDuration: 0.2, animations: {
                     self.lblGeneral.alpha = 1
                 }, completion: { (true) in
-                    UIView.animate(withDuration: 1, animations: {
+                    UIView.animate(withDuration: 0.2, animations: {
                         self.lblUserName.alpha = 1
                     }, completion: { (true) in
-                        UIView.animate(withDuration: 0.01, animations: {
+                        UIView.animate(withDuration: 0.2, animations: {
                             self.userName.alpha = 1
                         }, completion: { (true) in
-                            UIView.animate(withDuration: 1, animations: {
+                            UIView.animate(withDuration: 0.2, animations: {
                                 self.lblAddictionLevel.alpha = 1
                             }) { (true) in
-                                UIView.animate(withDuration: 0.01, animations: {
+                                UIView.animate(withDuration: 0.2, animations: {
                                     self.userAddictionLevel.alpha = 1
                                 }, completion: { (true) in
-                                    UIView.animate(withDuration: 1, animations: {
+                                    UIView.animate(withDuration: 0.2, animations: {
                                         self.lblActivityLevel.alpha = 1
                                     }, completion: { (true) in
-                                        UIView.animate(withDuration: 0.01, animations: {
+                                        UIView.animate(withDuration: 0.2, animations: {
                                             self.userActivityLevel.alpha = 1
                                         }, completion: { (true) in
-                                            UIView.animate(withDuration: 1, animations: {
+                                            UIView.animate(withDuration: 0.2, animations: {
                                                 self.lblPersonalBest.alpha = 1
                                             }, completion: { (true) in
-                                                UIView.animate(withDuration: 1, animations: {
+                                                UIView.animate(withDuration: 0.2, animations: {
                                                     self.lblDailyTOFF.alpha = 1
                                                 }) { (true) in
-                                                    UIView.animate(withDuration: 0.01, animations: {
+                                                    UIView.animate(withDuration: 0.2, animations: {
                                                         self.pbest_Daily_Timeoff.alpha = 1
                                                     }, completion: { (true) in
-                                                        UIView.animate(withDuration: 1, animations: {
+                                                        UIView.animate(withDuration: 0.2, animations: {
                                                             self.lblWeeklyTOFF.alpha = 1
                                                         }, completion: { (true) in
-                                                            UIView.animate(withDuration: 0.01, animations: {
+                                                            UIView.animate(withDuration: 0.2, animations: {
                                                                 self.pbest_Weekly_Timeoff.alpha = 1
                                                             }, completion: { (true) in
-                                                                UIView.animate(withDuration: 1, animations: {
+                                                                UIView.animate(withDuration: 0.2, animations: {
                                                                     self.lblDailySteps.alpha = 1
                                                                 }, completion: { (true) in
-                                                                    UIView.animate(withDuration: 0.01, animations: {
+                                                                    UIView.animate(withDuration: 0.2, animations: {
                                                                         self.pbest_Daily_Steps.alpha = 1
                                                                     }, completion: { (true) in
-                                                                        UIView.animate(withDuration: 1, animations: {
+                                                                        UIView.animate(withDuration: 0.2, animations: {
                                                                             self.lblWeeklySteps.alpha = 1
                                                                         }, completion: { (true) in
-                                                                            UIView.animate(withDuration: 0.01, animations: {
+                                                                            UIView.animate(withDuration: 0.2, animations: {
                                                                                 self.pbest_Weekly_Steps.alpha = 1
                                                                             })
                                                                         })

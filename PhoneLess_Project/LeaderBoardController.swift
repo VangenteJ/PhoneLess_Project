@@ -71,46 +71,46 @@ class LeaderBoardController: UIViewController {
         super.viewDidAppear(animated)
         
         // Starting animation chain
-        UIView.animate(withDuration: 1, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.lblPageTitle.alpha = 1
         }) { (true) in
-            UIView.animate(withDuration: 1, animations: {
+            UIView.animate(withDuration: 0.2, animations: {
                 self.imgimageview.alpha = 1
             }, completion: { (true) in
-                UIView.animate(withDuration: 1, animations: {
+                UIView.animate(withDuration: 0.2, animations: {
                     self.lblhash.alpha = 1
                 }, completion: { (true) in
-                    UIView.animate(withDuration: 1, animations: {
+                    UIView.animate(withDuration: 0.2, animations: {
                         self.lblName.alpha = 1
                     }, completion: { (true) in
-                        UIView.animate(withDuration: 1, animations: {
+                        UIView.animate(withDuration: 0.2, animations: {
                             self.lbltimeOFF.alpha = 1
                         }, completion: { (true) in
-                            UIView.animate(withDuration: 1, animations: {
+                            UIView.animate(withDuration: 0.2, animations: {
                                 self.lblSteps.alpha = 1
                             }) { (true) in
-                                UIView.animate(withDuration: 1, animations: {
+                                UIView.animate(withDuration: 0.2, animations: {
                                     self.txt_top1.alpha = 1
                                 }, completion: { (true) in
-                                    UIView.animate(withDuration: 1, animations: {
+                                    UIView.animate(withDuration: 0.2, animations: {
                                         self.txt_top1_name.alpha = 1
                                     }, completion: { (true) in
-                                        UIView.animate(withDuration: 1, animations: {
+                                        UIView.animate(withDuration: 0.2, animations: {
                                             self.txt_top1_min.alpha = 1
                                         }, completion: { (true) in
-                                            UIView.animate(withDuration: 1, animations: {
+                                            UIView.animate(withDuration: 0.2, animations: {
                                                 self.txt_top1_steps.alpha = 1
                                             }, completion: { (true) in
-                                                UIView.animate(withDuration: 1, animations: {
+                                                UIView.animate(withDuration: 0.2, animations: {
                                                     self.txt_top2.alpha = 1
                                                 }, completion: { (true) in
-                                                    UIView.animate(withDuration: 1, animations: {
+                                                    UIView.animate(withDuration: 0.2, animations: {
                                                         self.txt_top2_name.alpha = 1
                                                     }, completion: { (true) in
-                                                        UIView.animate(withDuration: 1, animations: {
+                                                        UIView.animate(withDuration: 0.2, animations: {
                                                             self.txt_top2_min.alpha = 1
                                                         }, completion: { (true) in
-                                                            UIView.animate(withDuration: 1, animations: {
+                                                            UIView.animate(withDuration: 0.2, animations: {
                                                                 self.txt_top2_steps.alpha = 1
                                                             })
                                                         })

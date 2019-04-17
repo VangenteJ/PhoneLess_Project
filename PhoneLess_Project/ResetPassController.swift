@@ -24,7 +24,7 @@ class ResetPassController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    
+    // Function that thats user's input and sends message to input email if correct
     @IBAction func btn_SendEmail(_ sender: Any) {
         if let email = txtEmail_Input.text {
             if email != ""{
@@ -42,6 +42,7 @@ class ResetPassController: UIViewController {
         }
     }
     
+    // Return to login page
     @IBAction func btn_Back(_ sender: Any) {
         self.performSegue(withIdentifier: "Blogin", sender: self)
     }
