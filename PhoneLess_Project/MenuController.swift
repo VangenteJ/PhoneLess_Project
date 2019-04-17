@@ -41,13 +41,15 @@ class MenuController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
-        steps_label()
         update_Steps()
+        getTimefromDB()
+        steps_label()
         chechImages()
         beenNagged()
 
         // Do any additional setup after loading the view.
     }
+    
     @IBAction func poke(_ sender: Any) {
         handle = ref?.child(userID!).child("New Friend1").observe(.value, with: { (snpashot) in
             if snpashot.value as? String != nil{
@@ -118,18 +120,29 @@ class MenuController: UIViewController {
         if CMPedometer.isStepCountingAvailable(){
             stepCounter()
         }
-        
+        steps_Taken = String(600)
         handle = ref.child(userID!).child("Daily Steps Goal").observe(.value, with: { (snapshot) in
             if snapshot.value as? String != nil{
                 let daily_Steps = snapshot.value as! String
                 if let dSteps = Int(daily_Steps){
                     if let actualSteps = Int(self.steps_Taken!){
                         if actualSteps > 500 && actualSteps < dSteps{
-                            self.txtStepsQuote.text = "Not on the goal yet but you will get there if you keep at it"
+                            if let my_steps = Int(self.steps_Taken!){
+                                self.txtSteps.text = "You have walked: \(my_steps) steps today!"
+                                self.txtStepsQuote.text = "Not on the goal yet but you will get there if you keep at it"
+                            }
+                            
                         }else if actualSteps > 1000 && actualSteps < dSteps{
-                            self.txtStepsQuote.text = "You did not quite achieve it yet but you did better than yesterday!"
+                            if let my_steps = Int(self.steps_Taken!){
+                                self.txtSteps.text = "You have walked: \(my_steps) steps today!"
+                                self.txtStepsQuote.text = "You did not quite achieve it yet but you did better than yesterday!"
+                            }
+                            
                         }else if actualSteps > dSteps{
-                            self.txtStepsQuote.text = "You should give yourself a pat in the back for reaching the goal, you can push that extra mile now!"
+                            if let my_steps = Int(self.steps_Taken!){
+                                self.txtSteps.text = "You have walked: \(my_steps) steps today!"
+                                self.txtStepsQuote.text = "You should give yourself a pat in the back for reaching the goal, you can push that extra mile now!"
+                            }
                         }
                     }
                 }
@@ -143,7 +156,29 @@ class MenuController: UIViewController {
             self.txtStepsQuote.text = "A 1000 miles journey starts with a single step!"
             steps_Taken = "0"
         }
+        
+        handle = ref?.child(userID!).child("Time6A").observe(.value, with: { (snpashot) in
+            if snpashot.value as? String != nil{
+                let time_from_DB = snpashot.value as! String
+                if time_from_DB == "0"{
+                    self.txtminutesOFF.text = "You have been off your phone for 0 secs today!"
+                    self.txtMinutesQuotes.text = "Not worth spending your time here today!"
+                }
+            }
+        })
     }
+    
+    func getTimefromDB(){
+        handle = ref?.child(userID!).child("Time6").observe(.value, with: { (snpashot) in
+            if snpashot.value as? String != nil{
+                let time_from_DB = snpashot.value as! String
+                self.txtminutesOFF.text = "You have been off your phone for \(time_from_DB) secs today!"
+                self.txtMinutesQuotes.text = "You have been doing great without the phone, try to keep it up!"
+                
+            }
+        })
+    }
+    
     
     //Get image from DB and add to the profile
     func chechImages(){

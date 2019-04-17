@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     //var user:DatabaseReference!
     var ref:DatabaseReference!
     
+    @IBOutlet weak var btnForgot_Password: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,7 +126,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func forgot_password(_ sender: Any) {
-        
+        self.performSegue(withIdentifier: "forgot", sender: self)
     }
     
     func login(){
@@ -135,6 +136,7 @@ class ViewController: UIViewController {
         txtRePassword.isHidden = true
         txtActivityLevel.isHidden = true
         txtAddictionLevel.isHidden = true
+        btnForgot_Password.isHidden = false
     }
     
     func register(){
@@ -144,6 +146,7 @@ class ViewController: UIViewController {
         txtRePassword.isHidden = false
         txtActivityLevel.isHidden = false
         txtAddictionLevel.isHidden = false
+        btnForgot_Password.isHidden = true
     }
     
     func clear_red(){
