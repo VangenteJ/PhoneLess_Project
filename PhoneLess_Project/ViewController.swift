@@ -47,6 +47,7 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         check_User()
         
+        // Animation chain
         UIView.animate(withDuration: 0.2, animations: {
             self.segLogReg.alpha = 1
         }) { (true) in
@@ -108,7 +109,7 @@ class ViewController: UIViewController {
             //Register users
             if let email = txtEmail.text, let password = txtPassword.text, let re_password = txtRePassword.text, let name = txtName.text{
                 if email != "" && password != "" && re_password != "" && name != ""{
-                    if password.count > 8{
+                    if password.count > 7{
                         if password == re_password{
                             Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
                                 if user != nil{
@@ -177,6 +178,7 @@ class ViewController: UIViewController {
         self.performSegue(withIdentifier: "forgot", sender: self)
     }
     
+    // Hide some view from the screen
     func login(){
         btnLoginRegister.setTitle("Login", for: .normal)
         lblLogin.text = "Login"
@@ -187,6 +189,7 @@ class ViewController: UIViewController {
         btnForgot_Password.isHidden = false
     }
     
+    // Add view to the screen
     func register(){
         btnLoginRegister.setTitle("Register", for: .normal)
         lblLogin.text = "Register"
@@ -197,6 +200,7 @@ class ViewController: UIViewController {
         btnForgot_Password.isHidden = true
     }
     
+    // Clear all red notifications
     func clear_red(){
         lblLogin.textColor = UIColor.white
         txtName.placeholderColor = UIColor.white
@@ -205,6 +209,7 @@ class ViewController: UIViewController {
         txtRePassword.placeholderColor = UIColor.white
     }
     
+    // Clear all text fields
     func clear_text(){
         txtName.text = ""
         txtEmail.text = ""
@@ -214,15 +219,15 @@ class ViewController: UIViewController {
         txtAddictionLevel.text = ""
     }
     
+    // Check if user is logged in
     func check_User(){
-        print ("Before")
         let actual_user = Auth.auth().currentUser
         if actual_user != nil{
             self.performSegue(withIdentifier: "LogReg", sender: self)
-            print ("here")
         }
     }
     
+    // Reject letter input
     func only_numbers(userid:String){
         if txtActivityLevel.text != ""{
             if let activity = Int(txtActivityLevel.text!){

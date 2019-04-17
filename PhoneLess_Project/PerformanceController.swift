@@ -12,6 +12,8 @@ import Firebase
 import FirebaseAuth
 
 class PerformanceController: UIViewController {
+    
+    // setting up variables
     @IBOutlet weak var segMonthDay: UISegmentedControl!
     @IBOutlet weak var lblMonthToSearch: UILabel!
     @IBOutlet weak var overaltargetmettittle: UILabel!
@@ -46,12 +48,10 @@ class PerformanceController: UIViewController {
         super.viewDidLoad()
         ref = Database.database().reference()
         get_chart_data_fromDB()
-
-        // Do any additional setup after loading the view.
+        
     }
     
-    
-
+    // Setting up the first chart
     func firstChart(dataOn:Double, dataOff:Double){
         pie_chart_time.chartDescription?.text = "Steps"
         
@@ -66,6 +66,7 @@ class PerformanceController: UIViewController {
         updateChartData()
     }
     
+    // Setting up the second chart
     func secondChart(dataOn:Double, dataOff:Double){
         pie_chart_steps.chartDescription?.text = "Time OFF"
         
@@ -81,6 +82,7 @@ class PerformanceController: UIViewController {
         updateSecondChartData()
     }
     
+    // Setting up the third chart
     func thirdChart(dataS:Double, dataT:Double){
         pie_chart_main.chartDescription?.text = "Time and Steps"
         
@@ -96,6 +98,7 @@ class PerformanceController: UIViewController {
         updateMainChartData()
     }
     
+    // Updating the first chart data
     func updateChartData(){
         let chartDataSet = PieChartDataSet(values: timeOFF, label: nil)
         let chartData = PieChartData(dataSet: chartDataSet)
@@ -106,6 +109,7 @@ class PerformanceController: UIViewController {
         pie_chart_time.data = chartData
     }
     
+    // Updating the second chart data
     func updateSecondChartData(){
         let chartDataSet = PieChartDataSet(values: steps, label: nil)
         let chartData = PieChartData(dataSet: chartDataSet)
@@ -116,6 +120,7 @@ class PerformanceController: UIViewController {
         pie_chart_steps.data = chartData
     }
     
+    // Updating the third chart data
     func updateMainChartData(){
         let chartDataSet = PieChartDataSet(values: time_Steps, label: nil)
         let chartData = PieChartData(dataSet: chartDataSet)
@@ -126,6 +131,7 @@ class PerformanceController: UIViewController {
         pie_chart_main.data = chartData
     }
     
+    // Getting details from DB to later populate the charts
     func get_chart_data_fromDB(){
         handle = ref?.child(userID!).child(timeDA).observe(.value, with: { (snapshot) in
             if snapshot.value as? String != nil{
@@ -160,6 +166,7 @@ class PerformanceController: UIViewController {
                 }
             })
             }else{
+                // Populate the chart with 0 if no data found in database
                 self.firstChart(dataOn: 0, dataOff: 0)
                 self.secondChart(dataOn: 0, dataOff: 0)
                 self.thirdChart(dataS: 0, dataT: 0)
@@ -167,6 +174,7 @@ class PerformanceController: UIViewController {
         })
     }
     
+    // Function that allows user to navigate backwards
     @IBAction func search_back(_ sender: Any) {
         if segMonthDay.selectedSegmentIndex == 0{
             if stepsDA == "Steps5" && timeDA == "Time5"{
@@ -203,6 +211,7 @@ class PerformanceController: UIViewController {
         }
     }
     
+    // Function that allows users navigate forward
     @IBAction func search_forward(_ sender: Any) {
         if segMonthDay.selectedSegmentIndex == 0{
             if stepsDA == "Steps1" && timeDA == "Time1"{
@@ -237,6 +246,8 @@ class PerformanceController: UIViewController {
             }
         }
     }
+    
+    // Function that changes display from days to months
     @IBAction func segueDay_Month(_ sender: Any) {
         if segMonthDay.selectedSegmentIndex == 0{
             stepsDA = "Steps5"

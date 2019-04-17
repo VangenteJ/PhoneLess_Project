@@ -68,6 +68,8 @@ class ProfileController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        // Starting the animation chain
         UIView.animate(withDuration: 1, animations: {
             self.lblPagetitle.alpha = 1
         }) { (true) in

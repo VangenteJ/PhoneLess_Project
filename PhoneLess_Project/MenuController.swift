@@ -61,6 +61,8 @@ class MenuController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        // Start the animation chain
         UIView.animate(withDuration: 1, animations: {
             self.imgimageview.alpha = 1
         }) { (true) in
@@ -86,6 +88,7 @@ class MenuController: UIViewController {
         }
     }
     
+    // Poke action
     @IBAction func poke(_ sender: Any) {
         handle = ref?.child(userID!).child("New Friend1").observe(.value, with: { (snpashot) in
             if snpashot.value as? String != nil{
@@ -118,6 +121,8 @@ class MenuController: UIViewController {
                 }
             })
     }
+    
+    // Poke action background
     @IBAction func name1Click(_ sender: Any) {
         btnName1.setTitle("", for: .normal)
         btnName2.setTitle("", for: .normal)
@@ -186,6 +191,7 @@ class MenuController: UIViewController {
         })
     }
     
+    // Check if there is any previous steps and reset display fields accordingly
     func steps_label(){
         if steps_Taken == nil || steps_Taken == "0"{
             self.txtSteps.text = "You have walked: 0 steps today!"
@@ -204,6 +210,7 @@ class MenuController: UIViewController {
         })
     }
     
+    // Fetch time  off screen from database
     func getTimefromDB(){
         handle = ref?.child(userID!).child("Time6").observe(.value, with: { (snpashot) in
             if snpashot.value as? String != nil{
@@ -234,6 +241,7 @@ class MenuController: UIViewController {
         }
     }
     
+    // Poking background process
     func beenNagged(){
         handle = ref?.child(userID!).child("Nagged").observe(.value, with: { (snpashot) in
             if snpashot.value as? String != nil{
@@ -256,6 +264,7 @@ class MenuController: UIViewController {
         })
     }
     
+    // Alert set up
     func createAlert (title:String, message:String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Guilty", style: UIAlertAction.Style.default, handler: { (action) in

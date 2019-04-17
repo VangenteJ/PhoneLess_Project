@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var ref:DatabaseReference!
     var window: UIWindow?
     
+    // Function that will help us know when the phone state changes
     let displayStatusChanged: CFNotificationCallback = { center, observer, name, object, info in
         let str = name!.rawValue as CFString
         if (str == "com.apple.springboard.lockcomplete" as CFString) {
@@ -28,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    // Setting up init for firebase configuration
     override init() {
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
@@ -38,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //FirebaseApp.configure()
         ref = Database.database().reference()
         
+        // Flag locked status
         let isDisplayStatusLocked = UserDefaults.standard
         isDisplayStatusLocked.set(false, forKey: "isDisplayStatusLocked")
         isDisplayStatusLocked.synchronize()
@@ -66,21 +69,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         
+        // Flag locked status
         let isDisplayStatusLocked = UserDefaults.standard
         if let lock = isDisplayStatusLocked.value(forKey: "isDisplayStatusLocked"){
             // user locked screen
             if(lock as! Bool){
-                // do anything you want here
-                print("Home button pressed.")
-                
-                
-                
             }
-                // user pressed home button
             else{
-                // do anything you want here
-                print("Lock button pressed.")
-                
                 let formatter = DateFormatter()
                 // initially set the format based on datepicker date / server String
                 formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -88,21 +83,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let myString = formatter.string(from: Date()) // string purpose I add here
                 // convert string to date
                 let myDate = formatter.date(from: myString)
-                //then again set the date format whhich type of output needed
+                // setting the format output for seconds
                 formatter.dateFormat = "ss"
                 // again convert date to string
                 let myStringafd = formatter.string(from: myDate!)
                 
                 timeoff = myStringafd
-                print(myStringafd)
             }
         }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        
-        print("Back to foreground.")
         
         let formatter = DateFormatter()
         // initially set the format based on datepicker date / server String
@@ -111,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let myString = formatter.string(from: Date()) // string purpose I add here
         // convert string to date
         let myDate = formatter.date(from: myString)
-        //then again set the date format whhich type of output needed
+        // setting the format output for seconds
         formatter.dateFormat = "ss"
         // again convert date to string
         let myStringafd = formatter.string(from: myDate!)
@@ -128,8 +120,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
-        print(timeoff)
-        print(myStringafd)
+        // Store into DB
         if Auth.auth().currentUser?.uid != nil{
             ref.child((Auth.auth().currentUser?.uid)!).child("Time6").setValue(timeoff)
         }

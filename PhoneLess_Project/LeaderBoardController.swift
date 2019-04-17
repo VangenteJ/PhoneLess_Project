@@ -69,6 +69,8 @@ class LeaderBoardController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        // Starting animation chain
         UIView.animate(withDuration: 1, animations: {
             self.lblPageTitle.alpha = 1
         }) { (true) in
@@ -126,7 +128,7 @@ class LeaderBoardController: UIViewController {
         }
     }
     
-    
+    // Populate leaderboard
     func populateboard(){
         handle = ref?.child(userID!).child("New Friend1").observe(.value, with: { (snpashot) in
             if snpashot.value as? String != nil{
@@ -155,6 +157,7 @@ class LeaderBoardController: UIViewController {
         }
     }
     
+    // Background process for safely populating leaderboard
     func friend1Name(){
         handle = ref?.child(userID!).child("New Friend1").observe(.value, with: { (snpashot) in
             if snpashot.value as? String != nil{

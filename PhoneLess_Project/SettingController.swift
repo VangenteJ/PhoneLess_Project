@@ -55,7 +55,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         lblUserUID.text = userID
     }
     
-    
+    // Function that adds users goal input
     @IBAction func set_up_daily_timeoff_Goal(_ sender: Any) {
         if txtDailyTimeOFF.text != ""{
             if let dTime = Int(txtDailyTimeOFF.text!){
@@ -72,6 +72,8 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
             })
         }
     }
+    
+    // Function that adds users goal input
     @IBAction func set_up_weekly_timeoff_Goal(_ sender: Any) {
         if txtWeeklyTimeOff.text != ""{
             if let wTime = Int(txtWeeklyTimeOff.text!){
@@ -89,6 +91,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     
+    // Function that adds users goal input
     @IBAction func set_up_daily_steps(_ sender: Any) {
         if txtDailySteps.text != ""{
             if let dSteps = Int(txtDailySteps.text!){
@@ -106,6 +109,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     
+    // Function that allows user to rate their phone addictiviness
     @IBAction func update_Activity_Level(_ sender: Any) {
         if txtActivityLevel.text != ""{
             if let activity = Int(txtActivityLevel.text!){
@@ -115,6 +119,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     
+    // Function that allows users to rate their phone addiction
     @IBAction func update_Device_addiction(_ sender: Any) {
         if txtAddictionLevel.text != ""{
             if let addiction = Int(txtAddictionLevel.text!){
@@ -124,6 +129,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     
+    // Allows user to add friends into their leaderboard
     @IBAction func add_friend(_ sender: Any) {
         handle = ref.child(userID!).child("New Friend1").observe(.value, with: { (snapshot) in
             if snapshot.value as? String == nil{
@@ -146,6 +152,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         })
     }
     
+    // Delete friend from user's leaderboard
     @IBAction func delete_Friend(_ sender: Any) {
         if txtAddFriend.text != ""{
            self.ref.child(self.userID!).child("New Friend1").setValue("New")
@@ -153,7 +160,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     
-    
+    // Add image
     @IBAction func addImage(_ sender: Any) {
         addImage()
     }
@@ -255,6 +262,12 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         btnUpdateImage.setImage(UIImage.init(named: "expand"), for: .normal)
     }
     
+    // Display help woindow
+    @IBAction func btnSeeHelp(_ sender: Any) {
+        self.performSegue(withIdentifier: "show_help", sender: self)
+    }
+    
+    
     //A function that allows users to add image into the application through the phone library or camera
     func addImage(){
         let imagePickerController = UIImagePickerController()
@@ -300,6 +313,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
         chechImages()
     }
     
+    // Dismiss image picker
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
