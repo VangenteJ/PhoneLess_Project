@@ -11,17 +11,27 @@ import Firebase
 
 class ProfileController: UIViewController {
     
+    @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var userSurname: UILabel!
+    @IBOutlet weak var lblAddictionLevel: UILabel!
     @IBOutlet weak var userAddictionLevel: UILabel!
+    @IBOutlet weak var lblActivityLevel: UILabel!
     @IBOutlet weak var userActivityLevel: UILabel!
     
+    @IBOutlet weak var lblDailyTOFF: UILabel!
     @IBOutlet weak var pbest_Daily_Timeoff: UILabel!
+    @IBOutlet weak var lblWeeklyTOFF: UILabel!
     @IBOutlet weak var pbest_Weekly_Timeoff: UILabel!
+    @IBOutlet weak var lblDailySteps: UILabel!
     @IBOutlet weak var pbest_Daily_Steps: UILabel!
+    @IBOutlet weak var lblWeeklySteps: UILabel!
     @IBOutlet weak var pbest_Weekly_Steps: UILabel!
     
+    @IBOutlet weak var lblPagetitle: UILabel!
     @IBOutlet weak var userImg: UIImageView!
+    @IBOutlet weak var lblGeneral: UILabel!
+    @IBOutlet weak var lblPersonalBest: UILabel!
     
     var ref: DatabaseReference?
     var handle: DatabaseHandle?
@@ -31,11 +41,106 @@ class ProfileController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
+        
+        lblPagetitle.alpha = 0
+        userImg.alpha = 0
+        lblGeneral.alpha = 0
+        lblUserName.alpha = 0
+        userName.alpha = 0
+        lblAddictionLevel.alpha = 0
+        userAddictionLevel.alpha = 0
+        lblActivityLevel.alpha = 0
+        userActivityLevel.alpha = 0
+        lblPersonalBest.alpha = 0
+        lblDailyTOFF.alpha = 0
+        pbest_Daily_Timeoff.alpha = 0
+        lblWeeklyTOFF.alpha = 0
+        pbest_Weekly_Timeoff.alpha = 0
+        lblDailySteps.alpha = 0
+        pbest_Daily_Steps.alpha = 0
+        lblWeeklySteps.alpha = 0
+        pbest_Weekly_Steps.alpha = 0
+        
+        
+        get_data()
+        chechImages()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        get_data()
-        chechImages()
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 1, animations: {
+            self.lblPagetitle.alpha = 1
+        }) { (true) in
+            UIView.animate(withDuration: 1, animations: {
+                self.userImg.alpha = 1
+            }, completion: { (true) in
+                UIView.animate(withDuration: 1, animations: {
+                    self.lblGeneral.alpha = 1
+                }, completion: { (true) in
+                    UIView.animate(withDuration: 1, animations: {
+                        self.lblUserName.alpha = 1
+                    }, completion: { (true) in
+                        UIView.animate(withDuration: 0.01, animations: {
+                            self.userName.alpha = 1
+                        }, completion: { (true) in
+                            UIView.animate(withDuration: 1, animations: {
+                                self.lblAddictionLevel.alpha = 1
+                            }) { (true) in
+                                UIView.animate(withDuration: 0.01, animations: {
+                                    self.userAddictionLevel.alpha = 1
+                                }, completion: { (true) in
+                                    UIView.animate(withDuration: 1, animations: {
+                                        self.lblActivityLevel.alpha = 1
+                                    }, completion: { (true) in
+                                        UIView.animate(withDuration: 0.01, animations: {
+                                            self.userActivityLevel.alpha = 1
+                                        }, completion: { (true) in
+                                            UIView.animate(withDuration: 1, animations: {
+                                                self.lblPersonalBest.alpha = 1
+                                            }, completion: { (true) in
+                                                UIView.animate(withDuration: 1, animations: {
+                                                    self.lblDailyTOFF.alpha = 1
+                                                }) { (true) in
+                                                    UIView.animate(withDuration: 0.01, animations: {
+                                                        self.pbest_Daily_Timeoff.alpha = 1
+                                                    }, completion: { (true) in
+                                                        UIView.animate(withDuration: 1, animations: {
+                                                            self.lblWeeklyTOFF.alpha = 1
+                                                        }, completion: { (true) in
+                                                            UIView.animate(withDuration: 0.01, animations: {
+                                                                self.pbest_Weekly_Timeoff.alpha = 1
+                                                            }, completion: { (true) in
+                                                                UIView.animate(withDuration: 1, animations: {
+                                                                    self.lblDailySteps.alpha = 1
+                                                                }, completion: { (true) in
+                                                                    UIView.animate(withDuration: 0.01, animations: {
+                                                                        self.pbest_Daily_Steps.alpha = 1
+                                                                    }, completion: { (true) in
+                                                                        UIView.animate(withDuration: 1, animations: {
+                                                                            self.lblWeeklySteps.alpha = 1
+                                                                        }, completion: { (true) in
+                                                                            UIView.animate(withDuration: 0.01, animations: {
+                                                                                self.pbest_Weekly_Steps.alpha = 1
+                                                                            })
+                                                                        })
+                                                                    })
+                                                                })
+                                                            })
+                                                        })
+                                                    })
+                                                }
+                                            })
+                                        })
+                                    })
+                                })
+                            }
+                        })
+                    })
+                })
+            })
+        }
+
+
     }
     
     // Get info from DB

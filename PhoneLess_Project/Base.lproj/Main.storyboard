@@ -671,6 +671,11 @@
                     <tabBarItem key="tabBarItem" title="" image="Lboard" id="jCH-Xk-l0q"/>
                     <connections>
                         <outlet property="imgimageview" destination="IYS-be-Nyo" id="eBg-IJ-1ma"/>
+                        <outlet property="lblName" destination="Ah2-C7-8RX" id="Eiz-Og-nNT"/>
+                        <outlet property="lblPageTitle" destination="r8D-UG-FSa" id="NRd-ya-hU4"/>
+                        <outlet property="lblSteps" destination="PlN-hZ-8cv" id="rI2-8h-Zgj"/>
+                        <outlet property="lblhash" destination="YXa-8n-5rO" id="uga-N8-ZyB"/>
+                        <outlet property="lbltimeOFF" destination="DMn-Jc-id4" id="Meh-ml-VX4"/>
                         <outlet property="txt_top1" destination="XAq-Sa-68W" id="Fyv-7C-BWh"/>
                         <outlet property="txt_top1_min" destination="dZV-E0-gOa" id="XY5-1f-BzS"/>
                         <outlet property="txt_top1_name" destination="3Ld-qV-spH" id="iAg-OE-Wdv"/>
@@ -897,6 +902,16 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="profile" id="Erh-f5-RAH"/>
                     <connections>
+                        <outlet property="lblActivityLevel" destination="lK1-IV-kF1" id="g6T-5l-Nck"/>
+                        <outlet property="lblAddictionLevel" destination="MuU-bb-fMH" id="0ag-Zb-wjn"/>
+                        <outlet property="lblDailySteps" destination="9Z1-Is-h8r" id="IIh-GU-rwh"/>
+                        <outlet property="lblDailyTOFF" destination="bkO-ff-KbK" id="MXg-Xq-Dhs"/>
+                        <outlet property="lblGeneral" destination="wWJ-OG-WRO" id="41g-rY-TcE"/>
+                        <outlet property="lblPagetitle" destination="QIw-cU-zc6" id="ySZ-xe-YUA"/>
+                        <outlet property="lblPersonalBest" destination="btG-9c-sw7" id="xLy-pq-83Y"/>
+                        <outlet property="lblUserName" destination="HaY-1p-nF0" id="M5B-Of-DhJ"/>
+                        <outlet property="lblWeeklySteps" destination="hAc-XP-uWZ" id="chV-t1-Sfu"/>
+                        <outlet property="lblWeeklyTOFF" destination="VjA-EE-ocl" id="cpC-OW-V3T"/>
                         <outlet property="pbest_Daily_Steps" destination="KZP-lW-hX4" id="a3E-zH-lnQ"/>
                         <outlet property="pbest_Daily_Timeoff" destination="zTD-cI-Smt" id="zsN-Zc-ItR"/>
                         <outlet property="pbest_Weekly_Steps" destination="zAP-Al-eEv" id="mJS-Yj-svK"/>
@@ -1223,6 +1238,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="home2" id="LaZ-kp-lTD"/>
                     <connections>
+                        <outlet property="btnFingerPoint" destination="0Jq-as-j75" id="3CA-IR-cEO"/>
                         <outlet property="btnName1" destination="rJY-hC-CuP" id="nva-Jb-4hM"/>
                         <outlet property="btnName2" destination="0uw-CZ-Krm" id="IUF-wc-28r"/>
                         <outlet property="btnName3" destination="hNi-VM-k9y" id="8d6-ZP-noo"/>

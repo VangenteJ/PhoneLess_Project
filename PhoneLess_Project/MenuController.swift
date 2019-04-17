@@ -16,6 +16,7 @@ class MenuController: UIViewController {
     @IBOutlet weak var btnName2: UIButton!
     @IBOutlet weak var btnName3: UIButton!
     @IBOutlet weak var btnName4: UIButton!
+    @IBOutlet weak var btnFingerPoint: UIButton!
     
     @IBOutlet weak var txtminutesOFF: UILabel!
     @IBOutlet weak var txtMinutesQuotes: UILabel!
@@ -41,6 +42,14 @@ class MenuController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
+        
+        imgimageview.alpha = 0
+        txtminutesOFF.alpha = 0
+        txtMinutesQuotes.alpha = 0
+        btnFingerPoint.alpha = 0
+        txtSteps.alpha = 0
+        txtStepsQuote.alpha = 0
+        
         update_Steps()
         getTimefromDB()
         steps_label()
@@ -48,6 +57,33 @@ class MenuController: UIViewController {
         beenNagged()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 1, animations: {
+            self.imgimageview.alpha = 1
+        }) { (true) in
+            UIView.animate(withDuration: 1, animations: {
+                self.txtminutesOFF.alpha = 1
+            }, completion: { (true) in
+                UIView.animate(withDuration: 1, animations: {
+                    self.txtMinutesQuotes.alpha = 1
+                }, completion: { (true) in
+                    UIView.animate(withDuration: 1, animations: {
+                        self.btnFingerPoint.alpha = 1
+                    }, completion: { (true) in
+                        UIView.animate(withDuration: 1, animations: {
+                            self.txtSteps.alpha = 1
+                        }, completion: { (true) in
+                            UIView.animate(withDuration: 1, animations: {
+                                self.txtStepsQuote.alpha = 1
+                            })
+                        })
+                    })
+                })
+            })
+        }
     }
     
     @IBAction func poke(_ sender: Any) {

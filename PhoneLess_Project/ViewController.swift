@@ -31,10 +31,58 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
+        
+        segLogReg.alpha = 0
+        lblLogin.alpha = 0
+        txtName.alpha = 0
+        txtEmail.alpha = 0
+        txtPassword.alpha = 0
+        txtRePassword.alpha = 0
+        txtActivityLevel.alpha = 0
+        txtAddictionLevel.alpha = 0
+        btnLoginRegister.alpha = 0
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         check_User()
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.segLogReg.alpha = 1
+        }) { (true) in
+            UIView.animate(withDuration: 0.2, animations: {
+                self.lblLogin.alpha = 1
+            }, completion: { (true) in
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.txtName.alpha = 1
+                }, completion: { (true) in
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.txtEmail.alpha = 1
+                    }, completion: { (true) in
+                        UIView.animate(withDuration: 0.2, animations: {
+                            self.txtPassword.alpha = 1
+                        }, completion: { (true) in
+                            UIView.animate(withDuration: 0.2, animations: {
+                                self.txtRePassword.alpha = 1
+                            }, completion: { (true) in
+                                UIView.animate(withDuration: 0.2, animations: {
+                                    self.txtActivityLevel.alpha = 1
+                                }, completion: { (true) in
+                                    UIView.animate(withDuration: 0.2, animations: {
+                                        self.txtAddictionLevel.alpha = 1
+                                    }, completion: { (true) in
+                                        UIView.animate(withDuration: 0.2, animations: {
+                                            self.btnLoginRegister.alpha = 1
+                                        })
+                                    })
+                                })
+                            })
+                        })
+                    })
+                })
+            })
+        }
+        
     }
     
 // Login or register users

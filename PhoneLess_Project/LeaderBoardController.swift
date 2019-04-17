@@ -12,7 +12,12 @@ import FirebaseDatabase
 
 class LeaderBoardController: UIViewController {
 
+    @IBOutlet weak var lblPageTitle: UILabel!
     @IBOutlet weak var imgimageview: UIImageView!
+    @IBOutlet weak var lblhash: UILabel!
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lbltimeOFF: UILabel!
+    @IBOutlet weak var lblSteps: UILabel!
     
     @IBOutlet weak var txt_top1: UILabel!
     @IBOutlet weak var txt_top1_name: UILabel!
@@ -41,10 +46,86 @@ class LeaderBoardController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
+        
+        lblPageTitle.alpha = 0
+        imgimageview.alpha = 0
+        lblhash.alpha = 0
+        lblName.alpha = 0
+        lbltimeOFF.alpha = 0
+        lblSteps.alpha = 0
+        txt_top1.alpha = 0
+        txt_top1_name.alpha = 0
+        txt_top1_min.alpha = 0
+        txt_top1_steps.alpha = 0
+        txt_top2.alpha = 0
+        txt_top2_name.alpha = 0
+        txt_top2_min.alpha = 0
+        txt_top2_steps.alpha = 0
+        
         populateboard()
         chechImages()
         
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 1, animations: {
+            self.lblPageTitle.alpha = 1
+        }) { (true) in
+            UIView.animate(withDuration: 1, animations: {
+                self.imgimageview.alpha = 1
+            }, completion: { (true) in
+                UIView.animate(withDuration: 1, animations: {
+                    self.lblhash.alpha = 1
+                }, completion: { (true) in
+                    UIView.animate(withDuration: 1, animations: {
+                        self.lblName.alpha = 1
+                    }, completion: { (true) in
+                        UIView.animate(withDuration: 1, animations: {
+                            self.lbltimeOFF.alpha = 1
+                        }, completion: { (true) in
+                            UIView.animate(withDuration: 1, animations: {
+                                self.lblSteps.alpha = 1
+                            }) { (true) in
+                                UIView.animate(withDuration: 1, animations: {
+                                    self.txt_top1.alpha = 1
+                                }, completion: { (true) in
+                                    UIView.animate(withDuration: 1, animations: {
+                                        self.txt_top1_name.alpha = 1
+                                    }, completion: { (true) in
+                                        UIView.animate(withDuration: 1, animations: {
+                                            self.txt_top1_min.alpha = 1
+                                        }, completion: { (true) in
+                                            UIView.animate(withDuration: 1, animations: {
+                                                self.txt_top1_steps.alpha = 1
+                                            }, completion: { (true) in
+                                                UIView.animate(withDuration: 1, animations: {
+                                                    self.txt_top2.alpha = 1
+                                                }, completion: { (true) in
+                                                    UIView.animate(withDuration: 1, animations: {
+                                                        self.txt_top2_name.alpha = 1
+                                                    }, completion: { (true) in
+                                                        UIView.animate(withDuration: 1, animations: {
+                                                            self.txt_top2_min.alpha = 1
+                                                        }, completion: { (true) in
+                                                            UIView.animate(withDuration: 1, animations: {
+                                                                self.txt_top2_steps.alpha = 1
+                                                            })
+                                                        })
+                                                    })
+                                                })
+                                            })
+                                        })
+                                    })
+                                })
+                            }
+                        })
+                    })
+                })
+            })
+        }
+    }
+    
     
     func populateboard(){
         handle = ref?.child(userID!).child("New Friend1").observe(.value, with: { (snpashot) in
