@@ -229,7 +229,6 @@ class MenuController: UIViewController {
         
         image1.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if error != nil {
-                print("We trhough")
                 // Add logo image if no image found
                 self.imgimageview.image = UIImage(named: "Logo")
             } else {
