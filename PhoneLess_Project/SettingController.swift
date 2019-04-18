@@ -132,7 +132,7 @@ class SettingController: UIViewController, UIImagePickerControllerDelegate, UINa
     // Allows user to add friends into their leaderboard
     @IBAction func add_friend(_ sender: Any) {
         handle = ref.child(userID!).child("New Friend1").observe(.value, with: { (snapshot) in
-            if snapshot.value as? String == nil{
+            if snapshot.value as? String == "New"{
                 if self.txtAddFriend.text != ""{
                     let new_friend = self.txtAddFriend.text
                     self.ref.child(self.userID!).child("New Friend1").setValue(new_friend)

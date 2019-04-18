@@ -54,13 +54,12 @@ class MenuController: UIViewController {
         getTimefromDB()
         steps_label()
         chechImages()
-        beenNagged()
-
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        beenNagged()
         
         // Start the animation chain
         UIView.animate(withDuration: 1, animations: {
